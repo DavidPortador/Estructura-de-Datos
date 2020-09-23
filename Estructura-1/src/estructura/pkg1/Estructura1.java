@@ -26,7 +26,6 @@ public class Estructura1 {
                 case 2:listaString();break;
                 case 3:listaFloat(); break;
                 case 4:System.exit(0);
-                default:System.out.println("Seleccione una opcion valida");
             }
     }
     void listaString(){
