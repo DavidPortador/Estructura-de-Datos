@@ -53,22 +53,30 @@ public class Numeros {
             if(v_cont==0){
                 v_auxr1 = a_nreal[v_cont]*a_nreal[v_cont+1];
                 v_auxr2 = a_nreal[v_cont]*a_ncomp[v_cont+1];
-                
                 v_auxc1 = a_ncomp[v_cont]*a_nreal[v_cont+1];
                 v_auxc2 = a_ncomp[v_cont]*a_ncomp[v_cont+1];
-                System.out.println(v_auxr1 +", "+v_auxr2 +", "+v_auxc1 +", "+v_auxc2);
+                //System.out.println(v_auxr1 +", "+v_auxr2 +", "+v_auxc1 +", "+v_auxc2);
                 v_auxr2 += v_auxc1;
                 v_auxc2 *= -1; 
-                System.out.println(v_auxr1 +", "+v_auxr2 +", "+v_auxc2);
+                // System.out.println(v_auxr1 +", "+v_auxr2 +", "+v_auxc2);
                 v_auxr1 += v_auxc2;
                 a_resr=v_auxr1;
                 a_resc=v_auxr2;
                 System.out.println("Multiplicacion("+v_cont+"): "+a_resr+", "+a_resc+"i");
-                System.out.println(v_auxr1+", "+v_auxr2);
             }else{
-                v_auxr1=a_resr*a_nreal[v_cont+1];
-                v_auxr2=a_resc*a_ncomp[v_cont+1];
-                System.out.println("---"+v_auxr1+", "+v_auxr2);
+                v_auxr1 = a_resr*a_nreal[v_cont+1];
+                v_auxc1 = a_resr*a_ncomp[v_cont+1];
+                v_auxr2 = a_resc*a_nreal[v_cont+1];
+                v_auxc2 = a_resc*a_ncomp[v_cont+1];
+                // System.out.println(v_auxr1+" "+v_auxc1+" "+v_auxr2+" "+v_auxc2);
+                v_auxr2 += v_auxc1;
+                v_auxc2 *= -1;
+                // System.out.println(v_auxr1+" "+v_auxr2+" "+v_auxc2);
+                v_auxr1 += v_auxc2;
+                a_resr=v_auxr1;
+                a_resc=v_auxr2;
+                // System.out.println(a_resr+" "+a_resc);
+                System.out.println("Multiplicacion("+v_cont+"): "+a_resr+", "+a_resc+"i");
             }
         }
     }
