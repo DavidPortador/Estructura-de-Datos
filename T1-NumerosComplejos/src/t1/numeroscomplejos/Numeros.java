@@ -30,21 +30,31 @@ public class Numeros {
         int v_cont;
         String v_res;
         float v_auxr=0,v_auxc=0;
-        for(v_cont = 0;v_cont < get_Longitud()-1;v_cont++){
-            v_auxr += a_nreal[v_cont]+a_nreal[v_cont+1];
-            v_auxc += a_ncomp[v_cont]+a_ncomp[v_cont+1];
-        }
-        System.out.println("Suma = ("+v_auxr+" + "+v_auxc+"i)");
+        for(v_cont = 0;v_cont < get_Longitud()-1;v_cont++)
+            if(v_cont==0){
+                a_resr = a_nreal[v_cont]+a_nreal[v_cont+1];
+                a_resc = a_ncomp[v_cont]+a_ncomp[v_cont+1];
+                System.out.println("Suma("+v_cont+") = ("+a_resr+" + "+a_resc+"i)");
+            }else{
+                a_resr += a_nreal[v_cont+1];
+                a_resc += a_ncomp[v_cont+1];
+                System.out.println("Suma("+v_cont+") = ("+a_resr+" + "+a_resc+"i)");
+            }
     }
     void restar() {
         int v_cont;
         String v_res;
         float v_auxr=0,v_auxc=0;
-        for(v_cont = 0;v_cont < get_Longitud()-1;v_cont++){
-            v_auxr += a_nreal[v_cont]-a_nreal[v_cont+1];
-            v_auxc += a_ncomp[v_cont]-a_ncomp[v_cont+1];
-        }
-        System.out.println("Resta = ("+v_auxr+" + "+v_auxc+"i)");
+        for(v_cont = 0;v_cont < get_Longitud()-1;v_cont++)
+            if(v_cont==0){
+                a_resr = a_nreal[v_cont]-a_nreal[v_cont+1];
+                a_resc = a_ncomp[v_cont]-a_ncomp[v_cont+1];
+                System.out.println("Resta("+v_cont+") = ("+a_resr+" + "+a_resc+"i)");
+            }else{
+                a_resr -= a_nreal[v_cont+1];
+                a_resc -= a_ncomp[v_cont+1];
+                System.out.println("Resta("+v_cont+") = ("+a_resr+" + "+a_resc+"i)");
+            }
     }
     void multiplicar(){
         int v_cont;
@@ -62,7 +72,7 @@ public class Numeros {
                 v_auxr1 += v_auxc2;
                 a_resr=v_auxr1;
                 a_resc=v_auxr2;
-                System.out.println("Multiplicacion("+v_cont+"): "+a_resr+", "+a_resc+"i");
+                System.out.println("Multiplicacion("+v_cont+"): ("+a_resr+", "+a_resc+"i)");
             }else{
                 v_auxr1 = a_resr*a_nreal[v_cont+1];
                 v_auxc1 = a_resr*a_ncomp[v_cont+1];
@@ -76,7 +86,7 @@ public class Numeros {
                 a_resr=v_auxr1;
                 a_resc=v_auxr2;
                 // System.out.println(a_resr+" "+a_resc);
-                System.out.println("Multiplicacion("+v_cont+"): "+a_resr+", "+a_resc+"i");
+                System.out.println("Multiplicacion("+v_cont+"): ("+a_resr+", "+a_resc+"i)");
             }
         }
     }
