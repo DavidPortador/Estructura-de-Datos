@@ -59,7 +59,7 @@ public class Numeros {
     void multiplicar(){
         int v_cont;
         float v_auxr1,v_auxc1,v_auxr2,v_auxc2,v_resr,v_resc;
-        for(v_cont = 0;v_cont < get_Longitud()-1;v_cont++){
+        for(v_cont = 0;v_cont < get_Longitud()-1;v_cont++)
             if(v_cont==0){
                 v_auxr1 = a_nreal[v_cont]*a_nreal[v_cont+1];
                 v_auxr2 = a_nreal[v_cont]*a_ncomp[v_cont+1];
@@ -87,6 +87,53 @@ public class Numeros {
                 a_resc=v_auxr2;
                 // System.out.println(a_resr+" "+a_resc);
                 System.out.println("Multiplicacion("+v_cont+"): ("+a_resr+", "+a_resc+"i)");
+            }
+        
+    }
+    void dividir(){
+        int v_cont;
+        float v_auxr1,v_auxc1,v_auxr2,v_auxc2,v_resr,v_resc,v_conj,v_auxd1,v_auxd2;
+        for(v_cont = 0;v_cont < get_Longitud()-1;v_cont++){
+            v_conj = a_ncomp[v_cont+1]*-1;
+            if(v_cont==0){
+                v_auxr1=a_nreal[v_cont ]*a_nreal[v_cont+1];
+                v_auxc1=a_nreal[v_cont]*v_conj;
+                v_auxr2=a_ncomp[v_cont]*a_nreal[v_cont+1];
+                v_auxc2=a_ncomp[v_cont]*v_conj;
+                // System.out.println(v_auxr1 +", "+v_auxc1 +", "+v_auxr2 +", "+v_auxc2);
+                v_auxd1=a_nreal[v_cont+1];
+                v_auxd2=a_ncomp[v_cont+1];
+                v_auxd1 *= v_auxd1;
+                v_auxd2 *= v_auxd2;
+                // System.out.println(v_auxd1+". "+v_auxd2);
+                v_auxc2 *= -1;
+                v_auxr1 += v_auxc2;
+                v_auxc1 += v_auxr2;
+                // System.out.println(v_auxr1+", "+v_auxc1);
+                v_auxd1 += v_auxd2;
+                a_resr=v_auxr1/v_auxd1;
+                a_resc=v_auxc1/v_auxd1;
+                System.out.println("Division("+v_cont+"): ("+a_resr+", "+a_resc+"i)");
+            }else{
+                // System.out.println(a_nreal[v_cont+1]+", "+a_ncomp[v_cont+1]);
+                v_auxr1=a_resr*a_nreal[v_cont+1];
+                v_auxc1=a_resr*v_conj;
+                v_auxr2=a_resc*a_ncomp[v_cont+1];
+                v_auxc2=a_resc*v_conj;
+                // System.out.println(v_auxr1 +", "+v_auxc1 +", "+v_auxr2 +", "+v_auxc2);
+                v_auxd1=a_nreal[v_cont+1];
+                v_auxd2=a_ncomp[v_cont+1];
+                v_auxd1 *= v_auxd1;
+                v_auxd2 *= v_auxd2;
+                // System.out.println(v_auxd1+". "+v_auxd2);
+                v_auxc2 *= -1;
+                v_auxr1 += v_auxc2;
+                v_auxc1 += v_auxr2;
+                // System.out.println(v_auxr1+", "+v_auxc1);
+                v_auxd1 += v_auxd2;
+                a_resr=v_auxr1/v_auxd1;
+                a_resc=v_auxc1/v_auxd1;
+                System.out.println("Division("+v_cont+"): ("+a_resr+", "+a_resc+"i)");
             }
         }
     }

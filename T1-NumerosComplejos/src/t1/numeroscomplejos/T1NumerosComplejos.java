@@ -33,7 +33,7 @@ public class T1NumerosComplejos {
                 case 1: v_numeros.sumar(); break;
                 case 2: v_numeros.restar(); break;
                 case 3: v_numeros.multiplicar(); break;
-                case 4: break;
+                case 4: v_numeros.dividir(); break;
                 case 5: v_numeros.mostrarNumeros(); break;
                 case 6: System.exit(0); break;
             }
