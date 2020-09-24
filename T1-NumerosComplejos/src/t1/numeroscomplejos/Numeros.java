@@ -4,9 +4,11 @@ import java.util.Scanner;
 public class Numeros {
     // Atributos de la clase
     Scanner a_tec = new Scanner(System.in);
-    private int a_long;
+    private int a_long,a_contDatos=0;
     private float[] a_nreal;
     private float[] a_ncomp;
+    String[] a_proc = new String[4];
+    boolean a_bsuma=false,a_bresta=false,a_bmulti=false,a_bdiv=false;
     float a_resr,a_resc;
 
     // El constructor recibe la longitud e inicializa el arreglo
@@ -28,36 +30,63 @@ public class Numeros {
     }
     void sumar() {
         int v_cont;
-        String v_res;
+        String v_res="",v_opc;
         float v_auxr=0,v_auxc=0;
         for(v_cont = 0;v_cont < get_Longitud()-1;v_cont++)
             if(v_cont==0){
                 a_resr = a_nreal[v_cont]+a_nreal[v_cont+1];
                 a_resc = a_ncomp[v_cont]+a_ncomp[v_cont+1];
-                System.out.println("Suma("+v_cont+") = ("+a_resr+" + "+a_resc+"i)");
+                // System.out.println("Suma("+v_cont+") = ("+a_resr+" + "+a_resc+"i)");
+                v_res="("+a_nreal[v_cont]+"+"+a_ncomp[v_cont]+"i)+("+a_nreal[v_cont+1]
+                        +"+"+a_ncomp[v_cont+1]+"i) = ("+a_resr+"+"+a_resc+"i)";
             }else{
                 a_resr += a_nreal[v_cont+1];
                 a_resc += a_ncomp[v_cont+1];
-                System.out.println("Suma("+v_cont+") = ("+a_resr+" + "+a_resc+"i)");
+                // System.out.println("Suma("+v_cont+") = ("+a_resr+" + "+a_resc+"i)");
+                v_res+="+("+a_nreal[v_cont+1]+"+"+a_ncomp[v_cont+1]+"i) = "
+                        +"("+a_resr+"+"+a_resc+"i)";
             }
+        System.out.println("Suma: ("+a_resr+" + "+a_resc+"i)");        
+        if(a_bsuma==false){
+            System.out.print("¿Quiere guardar el procedimiento? [s/n] ");
+            v_opc=a_tec.next();
+            if(v_opc.equals("s") || v_opc.equals("S")){
+                guardar(v_res);
+                a_bsuma=true;
+            }
+        }
     }
     void restar() {
         int v_cont;
-        String v_res;
+        String v_res="",v_opc;
         float v_auxr=0,v_auxc=0;
         for(v_cont = 0;v_cont < get_Longitud()-1;v_cont++)
             if(v_cont==0){
                 a_resr = a_nreal[v_cont]-a_nreal[v_cont+1];
                 a_resc = a_ncomp[v_cont]-a_ncomp[v_cont+1];
-                System.out.println("Resta("+v_cont+") = ("+a_resr+" + "+a_resc+"i)");
+                // System.out.println("Resta("+v_cont+") = ("+a_resr+" + "+a_resc+"i)");
+                v_res="("+a_nreal[v_cont]+"+"+a_ncomp[v_cont]+"i)-("+a_nreal[v_cont+1]
+                        +"+"+a_ncomp[v_cont+1]+"i) = ("+a_resr+"+"+a_resc+"i)";
             }else{
                 a_resr -= a_nreal[v_cont+1];
                 a_resc -= a_ncomp[v_cont+1];
-                System.out.println("Resta("+v_cont+") = ("+a_resr+" + "+a_resc+"i)");
+                // System.out.println("Resta("+v_cont+") = ("+a_resr+" + "+a_resc+"i)");
+                v_res+="-("+a_nreal[v_cont+1]+"+"+a_ncomp[v_cont+1]+"i) = "
+                        +"("+a_resr+"+"+a_resc+"i)";
             }
+        System.out.println("Resta: ("+a_resr+" + "+a_resc+"i)");
+        if(a_bresta==false){
+            System.out.print("¿Quiere guardar el procedimiento? [s/n] ");
+            v_opc=a_tec.next();
+            if(v_opc.equals("s") || v_opc.equals("S")){
+                guardar(v_res);
+                a_bresta=true;
+            }
+        }
     }
     void multiplicar(){
         int v_cont;
+        String v_res="",v_opc;
         float v_auxr1,v_auxc1,v_auxr2,v_auxc2,v_resr,v_resc;
         for(v_cont = 0;v_cont < get_Longitud()-1;v_cont++)
             if(v_cont==0){
@@ -72,7 +101,9 @@ public class Numeros {
                 v_auxr1 += v_auxc2;
                 a_resr=v_auxr1;
                 a_resc=v_auxr2;
-                System.out.println("Multiplicacion("+v_cont+"): ("+a_resr+", "+a_resc+"i)");
+                // System.out.println("Multiplicacion("+v_cont+"): ("+a_resr+", "+a_resc+"i)");
+                v_res="("+a_nreal[v_cont]+"+"+a_ncomp[v_cont]+"i)*("+a_nreal[v_cont+1]
+                        +"+"+a_ncomp[v_cont+1]+"i) = ("+a_resr+"+"+a_resc+"i)";
             }else{
                 v_auxr1 = a_resr*a_nreal[v_cont+1];
                 v_auxc1 = a_resr*a_ncomp[v_cont+1];
@@ -86,12 +117,23 @@ public class Numeros {
                 a_resr=v_auxr1;
                 a_resc=v_auxr2;
                 // System.out.println(a_resr+" "+a_resc);
-                System.out.println("Multiplicacion("+v_cont+"): ("+a_resr+", "+a_resc+"i)");
+                // System.out.println("Multiplicacion("+v_cont+"): ("+a_resr+", "+a_resc+"i)");
+                v_res+="*("+a_nreal[v_cont+1]+"+"+a_ncomp[v_cont+1]+"i) = "
+                        +"("+a_resr+"+"+a_resc+"i)";
             }
-        
+        System.out.println("Multiplicacion: ("+a_resr+" + "+a_resc+"i)");
+        if(a_bmulti==false){
+            System.out.print("¿Quiere guardar el procedimiento? [s/n] ");
+            v_opc=a_tec.next();
+            if(v_opc.equals("s") || v_opc.equals("S")){
+                guardar(v_res);
+                a_bmulti=true;
+            }
+        }
     }
     void dividir(){
         int v_cont;
+        String v_res="",v_opc;
         float v_auxr1,v_auxc1,v_auxr2,v_auxc2,v_resr,v_resc,v_conj,v_auxd1,v_auxd2;
         for(v_cont = 0;v_cont < get_Longitud()-1;v_cont++){
             v_conj = a_ncomp[v_cont+1]*-1;
@@ -113,7 +155,9 @@ public class Numeros {
                 v_auxd1 += v_auxd2;
                 a_resr=v_auxr1/v_auxd1;
                 a_resc=v_auxc1/v_auxd1;
-                System.out.println("Division("+v_cont+"): ("+a_resr+", "+a_resc+"i)");
+                // System.out.println("Division("+v_cont+"): ("+a_resr+", "+a_resc+"i)");
+                v_res="("+a_nreal[v_cont]+"+"+a_ncomp[v_cont]+"i)/("+a_nreal[v_cont+1]
+                        +"+"+a_ncomp[v_cont+1]+"i) = ("+a_resr+"+"+a_resc+"i)";
             }else{
                 // System.out.println(a_nreal[v_cont+1]+", "+a_ncomp[v_cont+1]);
                 v_auxr1=a_resr*a_nreal[v_cont+1];
@@ -133,7 +177,18 @@ public class Numeros {
                 v_auxd1 += v_auxd2;
                 a_resr=v_auxr1/v_auxd1;
                 a_resc=v_auxc1/v_auxd1;
-                System.out.println("Division("+v_cont+"): ("+a_resr+", "+a_resc+"i)");
+                // System.out.println("Division("+v_cont+"): ("+a_resr+", "+a_resc+"i)");
+                v_res+="*("+a_nreal[v_cont+1]+"+"+a_ncomp[v_cont+1]+"i) = "
+                        +"("+a_resr+"+"+a_resc+"i)";
+            }
+        }
+        System.out.println("Division: ("+a_resr+" + "+a_resc+"i)");
+        if(a_bdiv==false){
+            System.out.print("¿Quiere guardar el procedimiento? [s/n] ");
+            v_opc=a_tec.next();
+            if(v_opc.equals("s") || v_opc.equals("S")){
+                guardar(v_res);
+                a_bdiv=true;
             }
         }
     }
@@ -145,6 +200,21 @@ public class Numeros {
     }
     public int get_Longitud() {
         return a_long;
+    }
+    void guardar(String p_dato){
+        a_proc[a_contDatos]=p_dato;
+        System.out.println("Se guardo con exito: "+a_proc[a_contDatos]);
+        a_contDatos++;
+    }
+    void mostarDatos(){
+        int v_cont;
+        if(a_bsuma==false && a_bresta==false && a_bmulti==false && a_bdiv==false)
+            System.out.println("No se han guardado Datos");
+        else{
+            System.out.println("Datos guardados: ");
+            for(v_cont=0;v_cont<a_contDatos;v_cont++)
+                System.out.println(a_proc[v_cont]);
+        }
     }
     float valiFloat(String p_texto) {
         float v_flt;

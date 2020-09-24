@@ -27,7 +27,8 @@ public class T1NumerosComplejos {
             System.out.println("3) Multiplicar");
             System.out.println("4) Dividir");
             System.out.println("5) Mostrar números");
-            System.out.println("6) Salir");
+            System.out.println("6) Mostrar procedimientos");
+            System.out.println("7) Salir");
             v_opc = valiEntero("Opcion: ");
             switch(v_opc){
                 case 1: v_numeros.sumar(); break;
@@ -35,7 +36,8 @@ public class T1NumerosComplejos {
                 case 3: v_numeros.multiplicar(); break;
                 case 4: v_numeros.dividir(); break;
                 case 5: v_numeros.mostrarNumeros(); break;
-                case 6: System.exit(0); break;
+                case 6: v_numeros.mostarDatos();break;
+                case 7: System.exit(0); break;
             }
         }
     }
