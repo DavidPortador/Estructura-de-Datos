@@ -25,6 +25,19 @@ public class P291 {
             }
          }  // fin del ciclo
     }
+    void validar(String p_dato){
+        int v_cont=0,v_cont2=0;
+        String[] v_arr = p_dato.split(" ");
+        for(int i=0;i<v_arr.length;i++)
+            if(!v_arr[i].equals(""))
+                v_cont++;
+        a_datos = new String[v_cont];
+        for(int i=0;i<v_arr.length;i++)
+            if(!v_arr[i].equals("")){
+                a_datos[v_cont2]=v_arr[i];
+                v_cont2++;
+            }
+    }
     void separar(String p_dato){
         String v_ope;
         try {
