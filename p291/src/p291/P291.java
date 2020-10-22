@@ -13,6 +13,7 @@ public class P291 {
     }
     void entrada(){
         String v_variable="";
+        String[] v_datos;
         boolean v_bandera=true;
         while(v_bandera){
             try {
@@ -21,32 +22,34 @@ public class P291 {
                 v_bandera=false;
             }
             if (v_bandera) {  
-                separar(v_variable);
+                v_datos = validar(v_variable);
+                separar(v_datos);
             }
-         }  // fin del ciclo
+         }
     }
-    void validar(String p_dato){
-        int v_cont=0,v_cont2=0;
-        String[] v_arr = p_dato.split(" ");
-        for(int i=0;i<v_arr.length;i++)
-            if(!v_arr[i].equals(""))
-                v_cont++;
-        a_datos = new String[v_cont];
-        for(int i=0;i<v_arr.length;i++)
-            if(!v_arr[i].equals("")){
-                a_datos[v_cont2]=v_arr[i];
-                v_cont2++;
-            }
+    String[] validar(String p_dato){
+        String[] v_datos = null;
+        try {
+            int v_cont=0,v_cont2=0;
+            String[] v_aux = p_dato.split(" ");
+            for(int j=0;j<v_aux.length;j++)
+                if(!v_aux[j].equals(""))
+                    v_cont++;
+            v_datos = new String[v_cont];
+            for(int k=0;k<v_aux.length;k++)
+                if(!v_aux[k].equals("")){
+                    v_datos[v_cont2]= v_aux[k];
+                    v_cont2++;
+                }
+            return v_datos;
+        } catch (Exception e) {
+            return v_datos;
+        }
     }
-    void separar(String p_dato){
+    void separar(String[] p_dato){
         String v_ope;
         try {
-            String[] v_arr = p_dato.split(" ");
-            if(v_arr.length>7){
-                for(int j=0;j<v_arr.length;j++){
-                    
-                } 
-            }
+            String[] v_arr = p_dato;
             String[] v_auxc1 = v_arr[2].split("i");
             String[] v_auxc2 = v_arr[5].split("i");
             a_real1 = Float.parseFloat(v_arr[0]);

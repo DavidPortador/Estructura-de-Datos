@@ -3,8 +3,8 @@ package p284;
 import java.util.Scanner;
 public class P284 {
     Scanner a_tec = new Scanner(System.in);
-        private Nodo a_cabeza;
-        private int a_longitud = 0;
+    private Nodo a_cabeza;
+    private int a_longitud = 0;
     public static void main(String[] args) {
         P284 v_obj = new P284();
         v_obj.entrada();

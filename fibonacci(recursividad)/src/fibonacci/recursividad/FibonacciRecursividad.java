@@ -8,7 +8,7 @@ public class FibonacciRecursividad {
     void m_inicio(){
         int v_cont;
         System.out.print("0 ");
-        for(v_cont=0;v_cont<20;v_cont++){
+        for(v_cont=0;v_cont<10;v_cont++){
             System.out.print(m_calcular(v_cont)+" ");
         }
     }
@@ -18,5 +18,5 @@ public class FibonacciRecursividad {
         }else{
            return m_calcular(p_cont-1)+m_calcular(p_cont-2);
         }
-    } 
+    }
 }
