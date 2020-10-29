@@ -1,7 +1,7 @@
 package p285;
+// 50 76 17 23 54 9 14 12 72 67 19 0
 
 import java.util.Scanner;
-
 public class P285 {
     Scanner a_tec = new Scanner(System.in);
     private Nodo a_cabeza;
@@ -25,28 +25,25 @@ public class P285 {
         v_datos = validar(v_dato);
         Celda v_ini = new Celda(1,v_datos[0],0,0);
         Nodo v_nodo = new Nodo(v_ini);
-        v_nodo.insertarPrincipio(v_ini);
+        v_nodo.insertar(v_ini);
         llenarNodos(v_nodo,v_datos,1);
         validarNodos(v_nodo);
+        v_nodo.vaciarNodos();
     }
     void validarNodos(Nodo p_nodo){
+        int v_anterior,v_actual,v_cont=0;
         for(int i=0;i<a_longitud;i++){
-            System.out.println(p_nodo.obtener(i).getA_conta()+" "+p_nodo.obtener(i).getA_valor()+" "+p_nodo.obtener(i).getA_menor()+" "+p_nodo.obtener(i).getA_mayor());
-            if(i==0){
-                
-            }else{
-                if(p_nodo.obtener(i).getA_menor()==0){
-                    for(int k=0;k<i;k++){
-                        System.out.println("--"+p_nodo.obtener(k).getA_valor());
-                    }
-                } 
-            }
+            System.out.println(p_nodo.obtener(i).getA_conta()+" "+p_nodo.obtener(i).getA_valor()+" "
+                    +p_nodo.obtener(i).getA_menor()+" "+p_nodo.obtener(i).getA_mayor());
         }
+    }
+    void recorrido(){
+        
     }
     void llenarNodos(Nodo p_nodo,int[] p_datos,int p_aux){
         if(p_aux<p_datos.length){
             Celda v_aux = new Celda(1,p_datos[p_aux],0,0);
-            p_nodo.insertarFinal(v_aux);
+            p_nodo.insertar(v_aux);
             p_aux++;
             llenarNodos(p_nodo,p_datos,p_aux);
         }
@@ -132,14 +129,7 @@ public class P285 {
         public Nodo(Celda p_int) {
             a_celda = p_int;
         }
-        void insertarPrincipio(Celda p_int){
-            Nodo v_nuevoNodo = new Nodo(p_int);
-            v_nuevoNodo.a_sig = a_cabeza;
-            a_cabeza = v_nuevoNodo;
-            a_longitud ++;
-            System.out.println("Agregado con exito");
-        }
-        void insertarFinal(Celda p_int){
+        void insertar(Celda p_int){
             Nodo v_nuevoNodo = new Nodo(p_int);  
             // Valida que la lista no este vacia
             if (a_cabeza == null)
@@ -150,24 +140,6 @@ public class P285 {
                     v_puntero = v_puntero.a_sig;
                 }
                 v_puntero.a_sig = v_nuevoNodo;
-            }
-            a_longitud ++;
-            System.out.println("Agregado con exito");
-        }
-        void insertarXn(int p_num, Celda p_int){ // Posicion especifica
-            Nodo v_nuevoNodo = new Nodo(p_int);  
-            // Valida que la lista no este vacia
-            if (a_cabeza == null)
-                a_cabeza = v_nuevoNodo;
-            else{
-                Nodo v_puntero = a_cabeza;
-                int v_cont=0;
-                while(v_cont < p_num && v_puntero.a_sig != null){
-                    v_puntero = v_puntero.a_sig;
-                    v_cont++;
-                }
-                v_nuevoNodo.a_sig = v_puntero.a_sig;
-                v_puntero.a_sig=v_nuevoNodo;
             }
             a_longitud ++;
             System.out.println("Agregado con exito");
@@ -188,59 +160,13 @@ public class P285 {
                     return v_puntero.a_celda;
             }
         }
-        void eliminarPrincipio(){
-            if (a_cabeza != null){
-                Nodo v_primer = a_cabeza;
-                a_cabeza = a_cabeza.a_sig;
-                v_primer.a_sig = null;
-                a_longitud--;
-                System.out.println("*Se elimino la cabeza de la estructura*");
-            }else
-                System.out.println("No existen datos");
+        void vaciarNodos(){
+            a_cabeza=null;
+            a_sig=null;
+            a_longitud=0;
         }
-        void eliminarFinal(){
-            if (a_cabeza != null && a_longitud != 1)
-                if(a_cabeza.a_sig == null){
-                    a_cabeza = null;
-                    a_longitud --;
-                    System.out.println("*Se elimino la cola de la estructura*");
-                }else{
-                    Nodo v_puntero = a_cabeza;
-                    while(v_puntero.a_sig.a_sig != null){
-                        v_puntero = v_puntero.a_sig;
-                    }
-                    v_puntero.a_sig = null;
-                    a_longitud--; 
-                    System.out.println("*Se elimino la cola de la estructura*");
-                }
-            else
-                if(a_longitud == 1)
-                    System.out.println("Solo existe un dato");
-                else
-                    System.out.println("No existen datos");
-            
-        }
-        void eliminarXn(int p_num){
-            if (a_cabeza != null)
-                if (p_num == 0){
-                    Nodo v_primer = a_cabeza;
-                    a_cabeza = a_cabeza.a_sig;
-                    v_primer.a_sig = null;
-                    a_longitud --;
-                    System.out.println("*Se elimino el dato ("+p_num+")*");
-                }else if (p_num < a_longitud){
-                    int v_cont = 0;
-                    Nodo v_puntero = a_cabeza;
-                    while (v_cont < (p_num - 1)){
-                        v_puntero = v_puntero.a_sig;
-                        v_cont ++;
-                    }
-                    Nodo v_temp = v_puntero.a_sig;
-                    v_puntero.a_sig = v_temp.a_sig;
-                    v_temp.a_sig = null;
-                    a_longitud --;
-                    System.out.println("*Se elimino el dato ("+p_num+")*");
-                }
+        int get_Long(){
+            return a_longitud;
         }
     }
 }
