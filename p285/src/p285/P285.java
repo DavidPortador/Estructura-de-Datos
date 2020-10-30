@@ -11,10 +11,10 @@ public class P285 {
         v_obj.entrada();
     }
     void entrada(){
-        int v_datos;
+        int v_datos,v_cont;
         v_datos = valiEntrada();
         a_tec.nextLine();
-        for(int i=0;i<v_datos;i++){
+        for(v_cont=0; v_cont<v_datos; v_cont++){
             arbol();
         }
     }
@@ -23,26 +23,132 @@ public class P285 {
         int[] v_datos;
         v_dato = a_tec.nextLine();
         v_datos = validar(v_dato);
-        Celda v_ini = new Celda(1,v_datos[0],0,0);
-        Nodo v_nodo = new Nodo(v_ini);
-        v_nodo.insertar(v_ini);
-        llenarNodos(v_nodo,v_datos,1);
-        validarNodos(v_nodo);
-        v_nodo.vaciarNodos();
-    }
-    void validarNodos(Nodo p_nodo){
-        int v_anterior,v_actual,v_cont=0;
-        for(int i=0;i<a_longitud;i++){
-            System.out.println(p_nodo.obtener(i).getA_conta()+" "+p_nodo.obtener(i).getA_valor()+" "
-                    +p_nodo.obtener(i).getA_menor()+" "+p_nodo.obtener(i).getA_mayor());
+        if(!repeticiones(v_datos)){
+            if(negativos(v_datos)){
+                Celda v_ini = new Celda(v_datos[0],0,0);
+                Nodo v_nodo = new Nodo(v_ini);
+                v_nodo.insertar(v_ini);
+                llenarNodos(v_nodo,v_datos,1);
+                validarNodos(v_nodo);
+                v_nodo.vaciarNodos();
+            }else{
+                System.exit(0);
+            }
+        }else{
+            System.exit(0);
         }
     }
-    void recorrido(){
-        
+    boolean negativos(int[] array){
+        boolean v_ban = true;
+        int v_con;
+        for(v_con=0; v_con<array.length-1; v_con++){
+            if(array[v_con] < 1){
+                v_ban=false;
+            }
+        }
+        return v_ban;
+    }
+    boolean repeticiones(int[] array){
+        boolean repetido = false;
+        int v_cont1,v_cont2;
+        for (v_cont1 = 0; v_cont1 < array.length; v_cont1++) {
+            for (v_cont2 = 0; v_cont2 < array.length; v_cont2++) {
+                if (array[v_cont1] == array[v_cont2] && v_cont1 != v_cont2) {
+                    repetido = true;
+                 }
+             }
+         }
+        return repetido;
+    }
+    void validarNodos(Nodo p_nodo){
+        int v_mayor, v_menor,v_anterior,v_actual,v_cont=0,v_con,v_con2,v_con3,v_con4;
+        int[] v_ramas;
+        for(v_con=1;v_con<a_longitud;v_con++){
+            recorrido(p_nodo,v_con,0);
+        }
+        for(v_con2=0;v_con2<a_longitud-1;v_con2++){
+            if(p_nodo.obtener(v_con2).getA_mayor()==0 && p_nodo.obtener(v_con2).getA_menor()==0){
+                v_cont++;
+            }
+        }
+        v_ramas = new int[v_cont];
+        v_cont=0;
+        for(v_con3=0;v_con3<a_longitud-1;v_con3++){
+            if(p_nodo.obtener(v_con3).getA_mayor()==0 && p_nodo.obtener(v_con3).getA_menor()==0){
+                //System.out.println(calcular(p_nodo,p_nodo.obtener(i).getA_valor(),i-1,1));
+                v_ramas[v_cont]=calcular(p_nodo,p_nodo.obtener(v_con3).getA_valor(),v_con3-1,1);
+                v_cont++;
+            }
+        }
+        v_mayor = v_menor = v_ramas[0];
+        for (v_con4=0;v_con4<v_ramas.length;v_con4++){
+            if(v_ramas [v_con4] > v_mayor) {
+                v_mayor = v_ramas[v_con4];
+            }
+            if(v_ramas[v_con4]<v_menor) {
+                v_menor = v_ramas[v_con4];
+            }
+        }
+        System.out.println(v_menor+" "+v_mayor);
+    }
+    int calcular(Nodo p_nodo, int p_valor, int p_pos, int p_cont){
+        //System.out.print("posi: "+p_pos+", ");
+        if(p_pos>=0){
+            if(p_nodo.obtener(p_pos).getA_mayor() == p_valor){
+                p_cont++;
+                p_valor = p_nodo.obtener(p_pos).getA_valor();
+                //System.out.print("ok "+p_valor);
+                return calcular(p_nodo,p_valor,p_pos-1,p_cont);
+            }else if(p_nodo.obtener(p_pos).getA_menor() == p_valor){
+                p_cont++;
+                p_valor = p_nodo.obtener(p_pos).getA_valor();
+                //System.out.print("ok "+p_valor);
+                return calcular(p_nodo,p_valor,p_pos-1,p_cont);
+            }else{
+                return calcular(p_nodo,p_valor,p_pos-1,p_cont);
+            }
+        }else{
+            return p_cont;
+        }
+    }
+    void recorrido(Nodo p_nodo, int p_num, int p_posi){
+        int v_base;
+        Celda v_raiz;
+        if(p_num<p_nodo.get_Long()){
+            v_base = p_nodo.obtener(p_num).getA_valor();
+            v_raiz = p_nodo.obtener(p_posi);
+            if(v_base<v_raiz.getA_valor()){
+                if(v_raiz.getA_menor()==0){
+                    v_raiz.setA_menor(v_base);
+                }else{
+                    p_posi = posicion(p_nodo, v_raiz.getA_menor());
+                    recorrido(p_nodo,p_num,p_posi);
+                }
+            }else if(v_base>v_raiz.getA_valor()){
+                if(v_raiz.getA_mayor()==0){
+                    v_raiz.setA_mayor(v_base);
+                }else{
+                    p_posi = posicion(p_nodo, v_raiz.getA_mayor());
+                    recorrido(p_nodo,p_num,p_posi);
+                }
+            }
+        }
+    }
+    int posicion(Nodo p_nodo,int p_valor){
+        int v_cont=0;
+        boolean v_ban=true;
+        while(v_cont<p_nodo.get_Long() && v_ban){
+            if(p_nodo.obtener(v_cont).getA_valor()==p_valor){
+                v_ban=false;
+            }else{
+                v_cont++;
+            }
+        }
+        return v_cont;
     }
     void llenarNodos(Nodo p_nodo,int[] p_datos,int p_aux){
         if(p_aux<p_datos.length){
-            Celda v_aux = new Celda(1,p_datos[p_aux],0,0);
+            Celda v_aux = new Celda(p_datos[p_aux],0,0);
             p_nodo.insertar(v_aux);
             p_aux++;
             llenarNodos(p_nodo,p_datos,p_aux);
@@ -50,16 +156,17 @@ public class P285 {
     }
     int[] validar(String p_dato){
         int[] v_datos = null;
+        int v_con,v_con2;
         try {
-            int v_cont=0,v_cont2=0;
+            int v_cont = 0,v_cont2 = 0;
             String[] v_aux = p_dato.split(" ");
-            for(int j=0;j<v_aux.length;j++)
-                if(!v_aux[j].equals(""))
+            for(v_con=0; v_con < v_aux.length; v_con++)
+                if(!v_aux[v_con].equals(""))
                     v_cont++;
             v_datos = new int[v_cont];
-            for(int k=0;k<v_aux.length;k++)
-                if(!v_aux[k].equals("")){
-                    v_datos[v_cont2]= Integer.parseInt(v_aux[k]);
+            for(v_con2=0;v_con2<v_aux.length;v_con2++)
+                if(!v_aux[v_con2].equals("")){
+                    v_datos[v_cont2]= Integer.parseInt(v_aux[v_con2]);
                     v_cont2++;
                 }
             return v_datos;
@@ -78,50 +185,32 @@ public class P285 {
         return v_num;
     }
     class Celda{
-        private int a_conta;
         private int a_valor;
         private int a_menor;
         private int a_mayor;
-
-        public Celda(int a_conta, int a_valor, int a_menor, int a_mayor) {
-            this.a_conta = a_conta;
+        public Celda(int a_valor, int a_menor, int a_mayor) {
             this.a_valor = a_valor;
             this.a_menor = a_menor;
             this.a_mayor = a_mayor;
         }
-
-        public int getA_conta() {
-            return a_conta;
-        }
-
-        public void setA_conta(int a_conta) {
-            this.a_conta = a_conta;
-        }
-
         public int getA_valor() {
             return a_valor;
         }
-
         public void setA_valor(int a_valor) {
             this.a_valor = a_valor;
         }
-
         public int getA_menor() {
             return a_menor;
         }
-
         public void setA_menor(int a_menor) {
             this.a_menor = a_menor;
         }
-
         public int getA_mayor() {
             return a_mayor;
         }
-
         public void setA_mayor(int a_mayor) {
             this.a_mayor = a_mayor;
         }
-        
     }
     private class Nodo{
         public Nodo a_sig = null;
@@ -142,7 +231,6 @@ public class P285 {
                 v_puntero.a_sig = v_nuevoNodo;
             }
             a_longitud ++;
-            System.out.println("Agregado con exito");
         }
         Celda obtener(int p_num){
             if (a_cabeza == null)
