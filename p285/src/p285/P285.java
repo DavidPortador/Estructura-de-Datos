@@ -25,35 +25,61 @@ public class P285 {
         v_datos = validar(v_dato);
         if(!repeticiones(v_datos)){
             if(negativos(v_datos)){
-                Celda v_ini = new Celda(v_datos[0],0,0);
-                Nodo v_nodo = new Nodo(v_ini);
-                v_nodo.insertar(v_ini);
-                llenarNodos(v_nodo,v_datos,1);
-                validarNodos(v_nodo);
-                v_nodo.vaciarNodos();
-            }else{
-                System.exit(0);
+                v_datos = valicero(v_datos);
+                if(v_datos[v_datos.length-1] == 0){
+                    valicero(v_datos);
+                    Celda v_ini = new Celda(v_datos[0],0,0);
+                    Nodo v_nodo = new Nodo(v_ini);
+                    v_nodo.insertar(v_ini);
+                    llenarNodos(v_nodo,v_datos,1);
+                    validarNodos(v_nodo);
+                    v_nodo.vaciarNodos();
+                }else{
+                    System.out.println("0");
+                }
             }
-        }else{
-            System.exit(0);
         }
     }
-    boolean negativos(int[] array){
+    int[] valicero(int[] p_datos){
+        int v_cont, v_cont2, v_aux = 0;
+        boolean v_ban = false;
+        if(p_datos[p_datos.length-1]==0){
+            return p_datos;
+        }else{
+            for(v_cont = 0; v_cont < p_datos.length; v_cont++){
+                if(p_datos[v_cont]==0){
+                    v_aux = v_cont+1;
+                    v_ban = true;
+                }
+            }
+            if(v_ban){
+                int[] v_datos = new int[v_aux];
+                for(v_cont2=0; v_cont2 < v_aux; v_cont2++){
+                    v_datos[v_cont2] = p_datos[v_cont2];
+                }
+                return v_datos;
+            }else{
+                return p_datos;
+            }
+        }
+        
+    }
+    boolean negativos(int[] p_datos){
         boolean v_ban = true;
         int v_con;
-        for(v_con=0; v_con<array.length-1; v_con++){
-            if(array[v_con] < 1){
+        for(v_con=0; v_con < p_datos.length-1; v_con++){
+            if(p_datos[v_con] < 0){
                 v_ban=false;
             }
         }
         return v_ban;
     }
-    boolean repeticiones(int[] array){
+    boolean repeticiones(int[] p_datos){
         boolean repetido = false;
         int v_cont1,v_cont2;
-        for (v_cont1 = 0; v_cont1 < array.length; v_cont1++) {
-            for (v_cont2 = 0; v_cont2 < array.length; v_cont2++) {
-                if (array[v_cont1] == array[v_cont2] && v_cont1 != v_cont2) {
+        for (v_cont1 = 0; v_cont1 < p_datos.length; v_cont1++) {
+            for (v_cont2 = 0; v_cont2 < p_datos.length; v_cont2++) {
+                if (p_datos[v_cont1] == p_datos[v_cont2] && v_cont1 != v_cont2) {
                     repetido = true;
                  }
              }

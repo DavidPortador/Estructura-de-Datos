@@ -10,67 +10,40 @@ public class P284 {
         v_obj.entrada();
     }
     void entrada(){
-        Celdas v_celda;
-        Nodo v_nodo = null;
-        int v_casos,v_cont=0,v_cont2=0,v_inicio;
-        int[] v_datos = new int[4];
-        String v_dato;
+        int v_casos,v_cont2=0,v_inicio;
+        int[] v_datos;
+        String v_dato="";
         boolean v_bandera=true;
         v_casos = valiCasos();
         a_tec.nextLine();
-        for(int i=0;i<v_casos;i++){
-            System.out.println("vuelta "+i);
-            v_bandera=true;
+        Celda v_aux = new Celda(0,0,0,0);
+        Nodo v_nodo = new Nodo(v_aux);
+        for (int i = 0; i < v_casos; i++) {
             while(v_bandera){
                 v_dato = a_tec.nextLine();
                 if(v_dato.equals("0")){
                     v_bandera = false;
                 }else{
-                    v_cont ++;
-                    v_cont2++;
                     v_datos = validar(v_dato);
-                    v_celda = new Celdas(v_datos[0],v_datos[1],v_datos[2],v_datos[3]);
-                    v_nodo = new Nodo(v_celda);
-                    v_nodo.insertar(v_celda);
-                    System.out.print(v_nodo.obtener(v_nodo.get_Longitud()-1).getA_ram()+", "+
-                            v_nodo.obtener(v_nodo.get_Longitud()-1).getA_valor()+", "+
-                            v_nodo.obtener(v_nodo.get_Longitud()-1).getA_izq()+", "+
-                            v_nodo.obtener(v_nodo.get_Longitud()-1).getA_der()+"\n");
-                    System.out.println("total de datos: "+v_nodo.get_Longitud());
+                    if(v_datos.length==4){
+                        // System.out.println("ok");
+                        Celda v_celda = new Celda(v_datos[0],v_datos[1],v_datos[2],v_datos[3]);
+                        v_nodo.insertar(v_celda);
+                        System.out.println(v_nodo.get_Long());
+                    }else{
+                        System.out.println("mal formado");
+                    }
                 }
             }
-            if(i==0){
-                System.out.println("---- 1"+", "+v_cont2);
-                //valiRecursion(1,1,v_cont2);
-                valiFormado(1,1,v_cont2,v_nodo);
-            }else{
-                v_inicio = (v_cont2-v_cont)+1;
-                System.out.println("---- "+v_inicio+", "+v_cont2);
-                //valiRecursion(v_inicio,v_inicio,v_cont2);
-                valiFormado(v_inicio,v_inicio,v_cont2,v_nodo);
-            }
-            v_cont=0;
+            recorrido(v_nodo);
+            // System.out.println("termina");
+            v_nodo.vaciarNodos();
+            v_bandera = true;
         }
     }
-    void valiFormado(int p_ini,int p_aux,int p_fin,Nodo p_nodo){
-        int v_valor,v_izq,v_der;
-        if(p_aux==p_ini){
-            Celdas v_celda = p_nodo.obtener(p_ini-1);
-            v_valor = v_celda.getA_valor();
-            v_izq = v_celda.getA_izq();
-            v_der = v_celda.getA_der();
-            System.out.println(v_valor+" "+v_izq+" "+v_der);
-        }else{
-            System.out.println("xd");
-        }
-    }/*
-    void valiRecursion(int p_ini,int p_aux,int p_fin){
-        if(p_aux<=p_fin){
-            System.out.println(p_aux);
-            p_aux++;
-            valiRecursion(p_ini,p_aux,p_fin);
-        }
-    }*/
+    void recorrido(Nodo p_nodo){
+        
+    }
     int[] validar(String p_dato){
         int[] v_datos = null;
         try {
@@ -102,38 +75,44 @@ public class P284 {
             return 0;
         }
     }
-    public class Celdas{
+    class Celda{
         private int a_ram;
         private int a_valor;
-        private int a_izq;
-        private int a_der;
-        public Celdas(int p_ram, int p_valor, int p_izq, int p_der) {
-            a_ram = p_ram;
-            a_valor = p_valor;
-            a_izq = p_izq;
-            a_der = p_der;
+        private int a_menor;
+        private int a_mayor;
+
+        public Celda(int a_ram, int a_valor, int a_menor, int a_mayor) {
+            this.a_ram = a_ram;
+            this.a_valor = a_valor;
+            this.a_menor = a_menor;
+            this.a_mayor = a_mayor;
         }
+
         public int getA_ram() {
             return a_ram;
         }
+
         public int getA_valor() {
             return a_valor;
         }
-        public int getA_izq() {
-            return a_izq;
+
+        public int getA_menor() {
+            return a_menor;
         }
-        public int getA_der() {
-            return a_der;
+
+        public int getA_mayor() {
+            return a_mayor;
         }
+        
     }
-    public class Nodo{
+    private class Nodo{
         public Nodo a_sig = null;
-        public Celdas a_celdas;
-        public Nodo(Celdas p_celdas) {
-            a_celdas = p_celdas;
+        public Celda a_celda;
+        public Nodo(Celda p_int) {
+            a_celda = p_int;
         }
-        void insertar(Celdas p_celdas){
-            Nodo v_nuevoNodo = new Nodo(p_celdas);  
+        void insertar(Celda p_int){
+            Nodo v_nuevoNodo = new Nodo(p_int);  
             // Valida que la lista no este vacia
             if (a_cabeza == null)
                 a_cabeza = v_nuevoNodo;
@@ -145,9 +124,9 @@ public class P284 {
                 v_puntero.a_sig = v_nuevoNodo;
             }
             a_longitud ++;
-            System.out.print("Agregado con exito: ");
+            System.out.println("agregado");
         }
-        Celdas obtener(int p_num){
+        Celda obtener(int p_num){
             if (a_cabeza == null)
                 return null;
             else{
@@ -160,10 +139,15 @@ public class P284 {
                 if(v_cont != p_num)
                     return null;
                 else
-                    return v_puntero.a_celdas;
+                    return v_puntero.a_celda;
             }
         }
-        int get_Longitud(){
+        void vaciarNodos(){
+            a_cabeza=null;
+            a_sig=null;
+            a_longitud=0;
+        }
+        int get_Long(){
             return a_longitud;
         }
     }
