@@ -12,8 +12,8 @@ public class P284 {
     void entrada(){
         int v_casos,v_cont2=0,v_inicio;
         int[] v_datos;
-        String v_dato="";
-        boolean v_bandera=true;
+        String v_dato = "";
+        boolean v_bandera = true;
         v_casos = valiCasos();
         a_tec.nextLine();
         Celda v_aux = new Celda(0,0,0,0);
@@ -29,20 +29,77 @@ public class P284 {
                         // System.out.println("ok");
                         Celda v_celda = new Celda(v_datos[0],v_datos[1],v_datos[2],v_datos[3]);
                         v_nodo.insertar(v_celda);
-                        System.out.println(v_nodo.get_Long());
+                        // System.out.println(v_nodo.get_Long());
                     }else{
-                        System.out.println("mal formado");
+                        // System.out.println("mal formado");
                     }
                 }
             }
-            recorrido(v_nodo);
-            // System.out.println("termina");
-            v_nodo.vaciarNodos();
-            v_bandera = true;
+            int v_raiz,v_posi;
+            v_raiz = v_nodo.obtener(0).getA_valor();
+            v_posi = posiRam(v_nodo,v_raiz);
+            if(v_posi==v_nodo.get_Long()){
+                System.out.println("MAL FORMADO DIRECCION INVALIDA");
+            }else{
+                System.out.println("raiz: "+v_raiz+", posi: "+v_posi);
+                recorrido(v_nodo,v_raiz,v_posi);
+                // System.out.println("termina");
+                v_nodo.vaciarNodos();
+                v_bandera = true;
+            }
+            
         }
     }
-    void recorrido(Nodo p_nodo){
-        
+    // llega el valor de la raiz (50) y hace el arbol a partir de eso
+    void recorrido(Nodo p_nodo, int p_valor, int p_posi){
+        if(p_nodo.obtener(p_posi).getA_menor() != 0){
+            // tiene mayor
+            int v_menor,v_posi;
+            v_menor = p_nodo.obtener(p_posi).getA_menor();
+            v_posi = posicion(p_nodo,v_menor);
+            if(p_posi==p_nodo.get_Long()){
+                System.out.println("MAL FORMADO DIRECCION INVALIDA");
+            }else{
+                System.out.println("pasa");
+                recorrido(p_nodo,v_menor,v_posi);
+            }
+            System.out.println(v_posi+" en "+v_menor);
+        }else{
+            // no tiene menor
+        }
+        if(p_nodo.obtener(p_posi).getA_mayor() != 0){
+            // tiene mayor
+            int v_mayor,v_posi;
+            v_mayor = p_nodo.obtener(p_posi).getA_mayor();
+            v_posi = posicion(p_nodo,v_mayor);
+            System.out.println(v_posi+" en "+v_mayor);
+        }else{
+            // no tiene mayor
+        }
+    }
+    int posicion(Nodo p_nodo,int p_valor){
+        int v_cont = 0;
+        boolean v_ban=true;
+        while(v_cont < p_nodo.get_Long() && v_ban){
+            if(p_nodo.obtener(v_cont).getA_valor()==p_valor){
+                v_ban=false;
+            }else{
+                v_cont++;
+            }
+        }
+        return v_cont;
+    }
+    int posiRam(Nodo p_nodo,int p_valor){
+        int v_cont = 0;
+        boolean v_ban=true;
+        while(v_cont < p_nodo.get_Long() && v_ban){
+            if(p_nodo.obtener(v_cont).getA_ram()==p_valor){
+                v_ban=false;
+            }else{
+                v_cont++;
+            }
+        }
+        return v_cont;
     }
     int[] validar(String p_dato){
         int[] v_datos = null;
@@ -124,7 +181,7 @@ public class P284 {
                 v_puntero.a_sig = v_nuevoNodo;
             }
             a_longitud ++;
-            System.out.println("agregado");
+            // System.out.println("agregado");
         }
         Celda obtener(int p_num){
             if (a_cabeza == null)

@@ -14,13 +14,13 @@ public class P285 {
         int v_datos,v_cont;
         v_datos = valiEntrada();
         a_tec.nextLine();
-        for(v_cont=0; v_cont<v_datos; v_cont++){
+        for(v_cont=0; v_cont < v_datos; v_cont++)
             arbol();
-        }
     }
     void arbol(){
         String v_dato;
         int[] v_datos;
+        boolean v_ban = true;
         v_dato = a_tec.nextLine();
         v_datos = validar(v_dato);
         if(!repeticiones(v_datos)){
@@ -35,7 +35,25 @@ public class P285 {
                     validarNodos(v_nodo);
                     v_nodo.vaciarNodos();
                 }else{
-                    System.out.println("0");
+                    String v_aux;
+                    int[] v_arrs = null;
+                    while(v_ban){
+                        v_aux = a_tec.nextLine();
+                        v_aux = v_dato + v_aux;
+                        v_dato = v_aux;
+                        v_arrs = validar(v_aux);
+                        if(v_arrs[v_arrs.length-1]==0)
+                            v_ban=false;
+                        else
+                            v_ban=true;
+                    }
+                    valicero(v_arrs);
+                    Celda v_ini = new Celda(v_arrs[0],0,0);
+                    Nodo v_nodo = new Nodo(v_ini);
+                    v_nodo.insertar(v_ini);
+                    llenarNodos(v_nodo,v_arrs,1);
+                    validarNodos(v_nodo);
+                    v_nodo.vaciarNodos();
                 }
             }
         }
@@ -43,79 +61,67 @@ public class P285 {
     int[] valicero(int[] p_datos){
         int v_cont, v_cont2, v_aux = 0;
         boolean v_ban = false;
-        if(p_datos[p_datos.length-1]==0){
+        if(p_datos[p_datos.length-1]==0)
             return p_datos;
-        }else{
-            for(v_cont = 0; v_cont < p_datos.length; v_cont++){
+        else{
+            for(v_cont = 0; v_cont < p_datos.length; v_cont++)
                 if(p_datos[v_cont]==0){
                     v_aux = v_cont+1;
                     v_ban = true;
                 }
-            }
             if(v_ban){
                 int[] v_datos = new int[v_aux];
-                for(v_cont2=0; v_cont2 < v_aux; v_cont2++){
+                for(v_cont2=0; v_cont2 < v_aux; v_cont2++)
                     v_datos[v_cont2] = p_datos[v_cont2];
-                }
                 return v_datos;
-            }else{
+            }else
                 return p_datos;
-            }
         }
         
     }
     boolean negativos(int[] p_datos){
         boolean v_ban = true;
         int v_con;
-        for(v_con=0; v_con < p_datos.length-1; v_con++){
-            if(p_datos[v_con] < 0){
+        for(v_con=0; v_con < p_datos.length-1; v_con++)
+            if(p_datos[v_con] < 0)
                 v_ban=false;
-            }
-        }
         return v_ban;
     }
     boolean repeticiones(int[] p_datos){
         boolean repetido = false;
         int v_cont1,v_cont2;
-        for (v_cont1 = 0; v_cont1 < p_datos.length; v_cont1++) {
-            for (v_cont2 = 0; v_cont2 < p_datos.length; v_cont2++) {
-                if (p_datos[v_cont1] == p_datos[v_cont2] && v_cont1 != v_cont2) {
+        for (v_cont1 = 0; v_cont1 < p_datos.length; v_cont1++) 
+            for (v_cont2 = 0; v_cont2 < p_datos.length; v_cont2++) 
+                if (p_datos[v_cont1] == p_datos[v_cont2] && v_cont1 != v_cont2) 
                     repetido = true;
-                 }
-             }
-         }
         return repetido;
     }
     void validarNodos(Nodo p_nodo){
         int v_mayor, v_menor,v_anterior,v_actual,v_cont=0,v_con,v_con2,v_con3,v_con4;
         int[] v_ramas;
-        for(v_con=1;v_con<a_longitud;v_con++){
+        for(v_con=1;v_con<a_longitud;v_con++)
             recorrido(p_nodo,v_con,0);
-        }
-        for(v_con2=0;v_con2<a_longitud-1;v_con2++){
-            if(p_nodo.obtener(v_con2).getA_mayor()==0 && p_nodo.obtener(v_con2).getA_menor()==0){
+        for(v_con2=0;v_con2<a_longitud-1;v_con2++)
+            if(p_nodo.obtener(v_con2).getA_mayor()==0 && p_nodo.obtener(v_con2).getA_menor()==0)
                 v_cont++;
-            }
-        }
         v_ramas = new int[v_cont];
         v_cont=0;
-        for(v_con3=0;v_con3<a_longitud-1;v_con3++){
+        for(v_con3=0;v_con3<a_longitud-1;v_con3++)
             if(p_nodo.obtener(v_con3).getA_mayor()==0 && p_nodo.obtener(v_con3).getA_menor()==0){
-                //System.out.println(calcular(p_nodo,p_nodo.obtener(i).getA_valor(),i-1,1));
                 v_ramas[v_cont]=calcular(p_nodo,p_nodo.obtener(v_con3).getA_valor(),v_con3-1,1);
                 v_cont++;
             }
-        }
         v_mayor = v_menor = v_ramas[0];
         for (v_con4=0;v_con4<v_ramas.length;v_con4++){
-            if(v_ramas [v_con4] > v_mayor) {
+            if(v_ramas [v_con4] > v_mayor)
                 v_mayor = v_ramas[v_con4];
-            }
-            if(v_ramas[v_con4]<v_menor) {
+            if(v_ramas[v_con4]<v_menor) 
                 v_menor = v_ramas[v_con4];
-            }
         }
         System.out.println(v_menor+" "+v_mayor);
+//        for (int i = 0; i < p_nodo.get_Long(); i++) {
+//            System.out.println(p_nodo.obtener(i).getA_valor()+", "+p_nodo.obtener(i).getA_menor()+", "+p_nodo.obtener(i).getA_mayor());
+//        }
     }
     int calcular(Nodo p_nodo, int p_valor, int p_pos, int p_cont){
         //System.out.print("posi: "+p_pos+", ");
@@ -130,12 +136,10 @@ public class P285 {
                 p_valor = p_nodo.obtener(p_pos).getA_valor();
                 //System.out.print("ok "+p_valor);
                 return calcular(p_nodo,p_valor,p_pos-1,p_cont);
-            }else{
+            }else
                 return calcular(p_nodo,p_valor,p_pos-1,p_cont);
-            }
-        }else{
+        }else
             return p_cont;
-        }
     }
     void recorrido(Nodo p_nodo, int p_num, int p_posi){
         int v_base;
@@ -143,33 +147,30 @@ public class P285 {
         if(p_num<p_nodo.get_Long()){
             v_base = p_nodo.obtener(p_num).getA_valor();
             v_raiz = p_nodo.obtener(p_posi);
-            if(v_base<v_raiz.getA_valor()){
-                if(v_raiz.getA_menor()==0){
+            if(v_base<v_raiz.getA_valor())
+                if(v_raiz.getA_menor()==0)
                     v_raiz.setA_menor(v_base);
-                }else{
+                else{
                     p_posi = posicion(p_nodo, v_raiz.getA_menor());
                     recorrido(p_nodo,p_num,p_posi);
                 }
-            }else if(v_base>v_raiz.getA_valor()){
-                if(v_raiz.getA_mayor()==0){
+            else if(v_base>v_raiz.getA_valor())
+                if(v_raiz.getA_mayor()==0)
                     v_raiz.setA_mayor(v_base);
-                }else{
+                else{
                     p_posi = posicion(p_nodo, v_raiz.getA_mayor());
                     recorrido(p_nodo,p_num,p_posi);
                 }
-            }
         }
     }
     int posicion(Nodo p_nodo,int p_valor){
         int v_cont=0;
         boolean v_ban=true;
-        while(v_cont<p_nodo.get_Long() && v_ban){
-            if(p_nodo.obtener(v_cont).getA_valor()==p_valor){
+        while(v_cont<p_nodo.get_Long() && v_ban)
+            if(p_nodo.obtener(v_cont).getA_valor()==p_valor)
                 v_ban=false;
-            }else{
+            else
                 v_cont++;
-            }
-        }
         return v_cont;
     }
     void llenarNodos(Nodo p_nodo,int[] p_datos,int p_aux){

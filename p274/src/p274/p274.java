@@ -44,12 +44,29 @@ public class p274 {
                     }
                 }else{
                     //aqui ya es de uno en uno
-                    System.out.println("continua...");
-                    if((getDato(p_datos[p_cont])==0) || (getDato(p_datos[p_cont])==1)){
+                    //System.out.println("continua...");
+                    if(p_cont < p_datos.length-1){
+                        if(getDato(p_datos[p_cont])==2){
+                            System.out.println("operador");
+                            if((getDato(p_datos[p_cont-1])==2)){
+                                System.out.println("FALTA OPERANDO");
+                            }else{
+                                System.out.println("recur");
+                                p_cont += 1;
+                                recursion(p_datos,p_cont);
+                            }
+                        }else if((getDato(p_datos[p_cont])==0) || getDato(p_datos[p_cont])==1){
+                            System.out.println("numero");
+                            
+                        }
                         
+                    }else{
+                        if((getDato(p_datos[p_cont])==0) || (getDato(p_datos[p_cont])==1)){
+                            System.out.println("FALTA OPERADOR");
+                        }else{
+                            System.out.println("FALTA OPERANDO");
+                        }
                     }
-                    p_cont += 2;
-                    recursion(p_datos,p_cont);
                 }
             }else{
                 // Solo dos o uno
@@ -69,6 +86,8 @@ public class p274 {
                         System.out.println("FALTA OPERANDO");
                 }
             }
+        }else{
+            System.out.println("se pasa...");
         }
     }
     int getDato(String p_dato){ // 0=letra 1=num 2=operador 3=desconocido
@@ -126,3 +145,7 @@ public class p274 {
         }
     }
 }
+
+/*
+
+*/
