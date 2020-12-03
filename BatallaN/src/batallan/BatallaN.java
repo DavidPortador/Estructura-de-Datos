@@ -1,13 +1,16 @@
 package batallan;
 
+import java.util.Scanner;
 public class BatallaN {
+    Scanner v_tec = new Scanner(System.in);
     String[][] matriz = new String[5][5];
     public static void main(String[] args) {
         BatallaN v_obj = new BatallaN();
         v_obj.entrada();
     }
     void entrada(){
-        matriz();
+        //matriz();
+        rx();
     }
     void randoms(){
         int x,y;
@@ -41,6 +44,14 @@ public class BatallaN {
                 System.out.print(matriz[j][p]+" ");
             }
             System.out.println("");
+        }
+    }
+    void rx(){
+        int[] v_num = new int[3];
+        try {
+            System.out.println(v_num[3]);
+        } catch (Exception e) {
+            System.out.println("error");
         }
     }
 }

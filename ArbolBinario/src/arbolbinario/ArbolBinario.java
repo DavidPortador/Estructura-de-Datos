@@ -12,13 +12,6 @@ public class ArbolBinario {
         int[] v_arbol = validar(v_datos);
         llenar(v_arbol);
     }
-    void llenar(int[] p_arbol){
-        Nodo v_Raiz = new Nodo(p_arbol[0]);
-        Arbol v_arbol = new Arbol(v_Raiz);
-        for (int i = 1; i < p_arbol.length-1; i++) {
-            v_arbol.insertar(v_Raiz, p_arbol[i]);
-        }
-    }
     int[] validar(String p_dato){
         int[] v_datos = null;
         int v_con,v_con2;
@@ -39,7 +32,13 @@ public class ArbolBinario {
             return v_datos;
         }
     }
-    
+    void llenar(int[] p_arbol){
+        Nodo v_Raiz = new Nodo(p_arbol[0]);
+        Arbol v_arbol = new Arbol(v_Raiz);
+        for (int i = 1; i < p_arbol.length-1; i++) {
+            v_arbol.insertar(v_Raiz, p_arbol[i]);
+        }
+    }
     class Nodo{
         private int valor;
         private Nodo izq;
@@ -49,29 +48,22 @@ public class ArbolBinario {
             izq = null;
             der = null;
         }
-
         public int getValor() {
             return valor;
         }
-        
         public Nodo getIzq() {
             return izq;
         }
-
         public void setIzq(Nodo izq) {
             this.izq = izq;
         }
-
         public Nodo getDer() {
             return der;
         }
-
         public void setDer(Nodo der) {
             this.der = der;
         }
-        
     }
-    
     class Arbol{
         Nodo a_raiz;
         

@@ -24,7 +24,7 @@ public class P291 {
                 v_datos = validar(v_variable);
                 separar(v_datos);
             }
-         }
+        }
     }
     String[] validar(String p_dato){
         String[] v_datos = null;
