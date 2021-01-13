@@ -3,54 +3,54 @@ package p274;
 import java.util.Scanner;
 public class p274 {
     Scanner a_tec = new Scanner(System.in);
+    boolean a_ban = true;
     public static void main(String[] args) {
         p274 v_obj = new p274();
         v_obj.entrada();
     }
     void entrada(){
-        String v_dato;
+        boolean v_ban = true;
+        String v_aux;
         String[] v_datos;
-        v_dato = a_tec.nextLine();
-        v_datos = validar(v_dato);
-        Pila v_nodo = new Pila("x");
-        calcular(v_datos, v_nodo, 0);
-    }
-    void calcular(String[] p_datos,Pila p_nodo,  int p_cont){
-        if(p_cont < p_datos.length){
-            int v_dato;
-            v_dato = getDato(p_datos[p_cont]);
-            if(p_cont == p_datos.length-1){
-                if(v_dato == 1){
-                    if(p_datos.length == 1)
+        do {
+            try {
+                v_aux = a_tec.nextLine();
+                v_datos = validar(v_aux);
+                Pila v_pila = new Pila("");
+                calcular(v_pila, v_datos, 0);
+                if(a_ban)
+                    if(v_pila.get_Long() == 1)
                         System.out.println("OK");
                     else
                         System.out.println("FALTA OPERADOR");
-                }else if(v_dato == 2){
-                    if(p_nodo.get_long() == 2)
-                        System.out.println("OK");
-                    else
-                        System.out.println("FALTA OPERANDO");
-                }else if(v_dato == 3){
-                    System.out.println("SIMBOLO DESCONOCIDO");
-                }
-            }else{
-                if(v_dato == 1){
-                    p_nodo.PUSH(p_datos[p_cont]);
-                    calcular(p_datos, p_nodo, p_cont+1);
-                }else if(v_dato == 2){
-                    if(p_nodo.get_long() < 2){
-                        System.out.println("FALTA OPERANDO");
-                    }else{
-                        p_nodo.POP();
-                        calcular(p_datos, p_nodo, p_cont+1);
-                    }
-                }else if(v_dato == 3){
-                    System.out.println("SIMBOLO DESCONOCIDO");
-                }
+                a_ban = true;
+            } catch (Exception e) {
+                v_ban = false;
             }
+        } while (v_ban);
+    }
+    void calcular(Pila p_pila, String[] p_datos, int p_cont){
+        if(getDato(p_datos[p_cont]) == 1){
+            p_pila.PUSH(p_datos[p_cont]);
+            p_cont ++;
+            if(p_cont != p_datos.length)
+                calcular(p_pila, p_datos, p_cont);
+        }else if(getDato(p_datos[p_cont]) == 2)
+            if(p_pila.get_Long() > 1){
+                p_pila.POP();
+                p_cont ++;
+                if(p_cont != p_datos.length)
+                    calcular(p_pila, p_datos, p_cont);
+            }else{
+                System.out.println("FALTA OPERANDO");
+                a_ban = false;
+            }
+        else if(getDato(p_datos[p_cont]) == 3){
+            System.out.println("SIMBOLO DESCONOCIDO");
+            a_ban = false;
         }
     }
-    int getDato(String p_dato){ // 1=num o letra 2=operador 3=desconocido
+    int getDato(String p_dato){                 // 1 = num o letra 2 = operador 3 = desconocido
         if(valiletra(p_dato) || (valinum(p_dato)))
             return 1;
         else if(valiope(p_dato))
@@ -103,16 +103,15 @@ public class p274 {
         }
     }
     class Pila{
-        Pila a_cabeza;
         int a_longitud = 0;
-        public Pila a_sig = null;
-        public String a_str;
-        // Constructor que recibe el objeto a manipular
-        public Pila(String p_str) {
-            a_str = p_str;
+        Pila a_cabeza = null;
+        Pila a_sig = null;
+        String a_var;
+        public Pila(String p_variable) {
+            a_var = p_variable;
         }
-        void PUSH(String p_str){
-            Pila v_nuevoNodo = new Pila(p_str);  
+        void PUSH(String p_variable){
+            Pila v_nuevoNodo = new Pila(p_variable);  
             // Valida que la lista no este vacia
             if (a_cabeza == null)
                 a_cabeza = v_nuevoNodo;
@@ -125,24 +124,8 @@ public class p274 {
             }
             a_longitud ++;
         }
-        String obtener(int p_num){
-            if (a_cabeza == null)
-                return null;
-            else{
-                Pila v_puntero = a_cabeza;
-                int v_cont = 0;
-                while(v_cont < p_num && v_puntero.a_sig != null){
-                    v_puntero = v_puntero.a_sig;
-                    v_cont++;
-                }
-                if(v_cont != p_num)
-                    return null;
-                else
-                    return v_puntero.a_str;
-            }
-        }
         void POP(){
-            if (a_cabeza != null && a_longitud != 1)
+            if (a_cabeza != null && a_longitud > 0)
                 if(a_cabeza.a_sig == null){
                     a_cabeza = null;
                     a_longitud --;
@@ -155,7 +138,7 @@ public class p274 {
                     a_longitud--; 
                 }
         }
-        int get_long(){
+        int get_Long(){
             return a_longitud;
         }
     }

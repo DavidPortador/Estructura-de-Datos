@@ -3,56 +3,79 @@ package p293;
 import java.util.Scanner;
 public class p293 {
     Scanner a_tec = new Scanner(System.in);
+    String a_resul = "";
     public static void main(String[] args) {
         p293 v_obj = new p293();
         v_obj.casos();
     }
     void casos(){
-        int v_casos,v_cc;
+        int v_casos, v_cc;
         v_casos = a_tec.nextInt();
         a_tec.nextLine();
-        for (v_cc = 0; v_cc < v_casos; v_cc++)
+        for (v_cc = 0; v_cc < v_casos; v_cc++){
             entrada();
+            a_resul = "";
+        }
     }
     void entrada(){
         int v_cont;
-        String v_aux,v_dato = "";
+        String v_aux, v_dato = "";
         String[] v_datos;
         TDA v_bipolar = new TDA("");
         while(!v_dato.equals("FINISH")){
             v_dato = a_tec.nextLine();
             v_datos = v_dato.split(" ");
-            // System.out.println(v_datos.length); // 1 elimina y 2 inserta O ELIMINA
             if(v_datos.length == 2){ // insertar
-                if(v_datos[0].equals("PUSH")){ //pila
+                if(v_datos[0].equals("PUSH")) //pila
                     v_bipolar.insertarFinal(v_datos[1]);
-                }else if(v_datos[0].equals("IN")){ //cola
+                else if(v_datos[0].equals("IN")) //cola
                     v_bipolar.insertarFinal(v_datos[1]);
-                }else if(v_datos[0].equals("INSERT")){ //lista
+                else if(v_datos[0].equals("INSERT")){ //lista
                     int v_posi = v_bipolar.recorrido(Integer.parseInt(v_datos[1]));
-                    System.out.println(v_posi);
-                    if(v_posi == 0){
+                    if(v_posi == 0)
                         v_bipolar.insertarPrincipio(v_datos[1]);
-                    }else
+                    else
                         v_bipolar.insertarXn(v_posi-1, v_datos[1]);
-                }else if(v_datos[0].equals("REMOVE")){
-                    
+                }else if(v_datos[0].equals("REMOVE")){ //eliminar
+                    int v_posi = v_bipolar.remove(Integer.parseInt(v_datos[1]));
+                    if(v_bipolar.get_Long() == 0)
+                        a_resul += "NO DATA, ";
+                    else
+                        if(v_posi == -1)
+                            a_resul += "NO DATA, ";
+                        else if(v_posi == v_bipolar.get_Long())
+                            a_resul += "NO DATA, ";
+                        else{
+                            a_resul += v_bipolar.obtener(v_posi)+", ";
+                            v_bipolar.eliminarXn(v_posi);
+                        }
                 }
-            }else if(v_datos.length == 1){ //eliminar
-                
-            }
+            }else if(v_datos.length == 1) //eliminar
+                if(v_datos[0].equals("POP"))
+                    if(v_bipolar.get_Long() == 0)
+                        a_resul += "UNDERFLOW, ";
+                    else{
+                        a_resul += v_bipolar.obtener(v_bipolar.get_Long()-1)+", ";
+                        v_bipolar.eliminarFinal();
+                    }
+                else if(v_datos[0].equals("OUT"))
+                    if(v_bipolar.get_Long() == 0)
+                        a_resul += "UNDERFLOW, ";
+                    else{
+                        a_resul += v_bipolar.obtener(0)+", ";
+                        v_bipolar.eliminarPrincipio();
+                    }
         }
-        System.out.println("termina");
-        for (int i = 0; i < v_bipolar.get_Long(); i++) {
-            System.out.println(v_bipolar.obtener(i));
-        }
+        if(a_resul.equals(""))
+            System.out.println("****");
+        else
+            System.out.println(a_resul+"****");
     }
     private class TDA{
         TDA a_cabeza;
         int a_longitud = 0;
         public TDA a_sig = null;
         public String a_str;
-        // Constructor que recibe el objeto a manipular
         public TDA(String p_str) {
             a_str = p_str;
         }
@@ -61,26 +84,21 @@ public class p293 {
             v_nuevoNodo.a_sig = a_cabeza;
             a_cabeza = v_nuevoNodo;
             a_longitud ++;
-            System.out.println("Agregado con exito");
         }
         void insertarFinal(String p_str){
-            TDA v_nuevoNodo = new TDA(p_str);  
-            // Valida que la lista no este vacia
+            TDA v_nuevoNodo = new TDA(p_str);
             if (a_cabeza == null)
                 a_cabeza = v_nuevoNodo;
             else{
                 TDA v_puntero = a_cabeza;
-                while(v_puntero.a_sig != null){
+                while(v_puntero.a_sig != null)
                     v_puntero = v_puntero.a_sig;
-                }
                 v_puntero.a_sig = v_nuevoNodo;
             }
             a_longitud ++;
-            System.out.println("Agregado con exito");
         }
-        void insertarXn(int p_num, String p_str){ // Posicion especifica
-            TDA v_nuevoNodo = new TDA(p_str);  
-            // Valida que la lista no este vacia
+        void insertarXn(int p_num, String p_str){
+            TDA v_nuevoNodo = new TDA(p_str);
             if (a_cabeza == null)
                 a_cabeza = v_nuevoNodo;
             else{
@@ -94,7 +112,6 @@ public class p293 {
                 v_puntero.a_sig=v_nuevoNodo;
             }
             a_longitud ++;
-            System.out.println("Agregado con exito");
         }
         String obtener(int p_num){
             if (a_cabeza == null)
@@ -118,31 +135,20 @@ public class p293 {
                 a_cabeza = a_cabeza.a_sig;
                 v_primer.a_sig = null;
                 a_longitud--;
-                System.out.println("*Se elimino la cabeza de la estructura*");
-            }else
-                System.out.println("No existen datos");
+            }
         }
         void eliminarFinal(){
             if (a_cabeza != null && a_longitud != 1)
                 if(a_cabeza.a_sig == null){
                     a_cabeza = null;
                     a_longitud --;
-                    System.out.println("*Se elimino la cola de la estructura*");
                 }else{
                     TDA v_puntero = a_cabeza;
-                    while(v_puntero.a_sig.a_sig != null){
+                    while(v_puntero.a_sig.a_sig != null)
                         v_puntero = v_puntero.a_sig;
-                    }
                     v_puntero.a_sig = null;
-                    a_longitud--; 
-                    System.out.println("*Se elimino la cola de la estructura*");
+                    a_longitud--;
                 }
-            else
-                if(a_longitud == 1)
-                    System.out.println("Solo existe un dato");
-                else
-                    System.out.println("No existen datos");
-            
         }
         void eliminarXn(int p_num){
             if (a_cabeza != null)
@@ -151,7 +157,6 @@ public class p293 {
                     a_cabeza = a_cabeza.a_sig;
                     v_primer.a_sig = null;
                     a_longitud --;
-                    System.out.println("*Se elimino el dato ("+p_num+")*");
                 }else if (p_num < a_longitud){
                     int v_cont = 0;
                     TDA v_puntero = a_cabeza;
@@ -163,7 +168,6 @@ public class p293 {
                     v_puntero.a_sig = v_temp.a_sig;
                     v_temp.a_sig = null;
                     a_longitud --;
-                    System.out.println("*Se elimino el dato ("+p_num+")*");
                 }
         }
         int get_Long(){
@@ -175,12 +179,25 @@ public class p293 {
             int v_nodo;
             while(v_cont < get_Long() && v_ban){
                 v_nodo = Integer.parseInt(obtener(v_cont));
-                //System.out.println(v_nodo+" < "+p_real);
-                if(v_nodo < p_real){
-                    System.out.println("si");
+                if(v_nodo < p_real)
                     v_cont++;
-                }else if(v_nodo > p_real){
-                    System.out.println("no");
+                else if(v_nodo > p_real)
+                    v_ban = false;
+            }
+            return v_cont;
+        }
+        int remove(int p_rem){
+            boolean v_ban = true;
+            int v_cont = 0;
+            int v_nodo;
+            while(v_cont < get_Long() && v_ban){
+                v_nodo = Integer.parseInt(obtener(v_cont));
+                if(p_rem == v_nodo)
+                    v_ban = false;
+                else if(p_rem > v_nodo)
+                    v_cont ++;
+                else{
+                    v_cont = -1;
                     v_ban = false;
                 }
             }

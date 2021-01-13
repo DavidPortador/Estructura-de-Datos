@@ -122,7 +122,7 @@ public class P291 {
             v_auxr1 += v_auxc2;
             v_real = v_auxr1;
             v_comp = v_auxr2;
-            if(v_comp<0){
+            if(v_comp < 0){
                 v_sig = "-";
                 v_comp *= -1;
             }else
@@ -137,17 +137,17 @@ public class P291 {
             v_auxr2 = a_real1*v_conj;
             v_auxc1 = a_comp1*a_real2;
             v_auxc2 = a_comp1*v_conj;
-            v_auxd1=a_real2;
-            v_auxd2=a_comp2;
+            v_auxd1 = a_real2;
+            v_auxd2 = a_comp2;
             v_auxd1 *= v_auxd1;
             v_auxd2 *= v_auxd2;
             v_auxc2 *= -1;
             v_auxr1 += v_auxc2;
             v_auxc1 += v_auxr2;
             v_auxd1 += v_auxd2;
-            v_real=v_auxr1/v_auxd1;
-            v_comp=v_auxc1/v_auxd1;
-            if(v_comp<0){
+            v_real = v_auxr1/v_auxd1;
+            v_comp = v_auxc1/v_auxd1;
+            if(v_comp < 0){
                 v_sig = "-";
                 v_comp *= -1;
             }else
@@ -156,4 +156,3 @@ public class P291 {
         }
     }
 }
-

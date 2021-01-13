@@ -10,8 +10,15 @@ public class P273 {
     }
     void entrada(){
         String v_dato;
-        v_dato = a_tec.nextLine();
-        separar(v_dato);
+        boolean v_ban = true;
+        while(v_ban){
+            try {
+                v_dato = a_tec.nextLine();
+                separar(v_dato);
+            } catch (Exception e) {
+                v_ban = false;
+            }
+        }
     }
     void separar(String p_dato){
         int v_cont=0,v_cont2=0;
@@ -28,14 +35,9 @@ public class P273 {
         validar(a_datos);
     }
     void validar(String[] p_datos){
-        if(p_datos[0].equals("+") || p_datos[0].equals("-") 
-                || p_datos[0].equals("*") || p_datos[0].equals("/")){
+        if(p_datos[0].equals("+") || p_datos[0].equals("-") || p_datos[0].equals("*") || p_datos[0].equals("/"))
             System.out.println("PREFIJA");
-        }else if(p_datos[p_datos.length-1].equals("+") 
-                || p_datos[p_datos.length-1].equals("-") 
-                || p_datos[p_datos.length-1].equals("*") 
-                || p_datos[p_datos.length-1].equals("/")){
+        else
             System.out.println("POSTFIJA");
-        }
     }
 }

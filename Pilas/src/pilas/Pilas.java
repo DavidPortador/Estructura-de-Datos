@@ -22,9 +22,9 @@ public class Pilas {
             if(v_opc==1){
                 v_num = valiEntero("Agregar: ");
                 objeto v_obj = new objeto(v_num);
-                v_nodo.insertarFinal(v_obj);
+                v_nodo.PUSH(v_obj);
             }else if(v_opc==2){
-                v_nodo.eliminarFinal();
+                v_nodo.POP();
             }else if(v_opc==3){
                 if(v_nodo.get_Long()>0){
                     for(int i=0;i<v_nodo.get_Long();i++){
@@ -70,11 +70,12 @@ public class Pilas {
         Nodo a_cabeza = null;
         Nodo a_sig = null;
         objeto a_var;
-        public Nodo(objeto p_var) {
-            a_var = p_var;
+        public Nodo(objeto p_variable) {
+            a_var = p_variable;
         }
-        void insertarFinal(objeto p_var){
-            Nodo v_nuevoNodo = new Nodo(p_var);  
+        
+        void PUSH(objeto p_variable){
+            Nodo v_nuevoNodo = new Nodo(p_variable);  
             // Valida que la lista no este vacia
             if (a_cabeza == null)
                 a_cabeza = v_nuevoNodo;
@@ -88,6 +89,7 @@ public class Pilas {
             a_longitud ++;
             System.out.println("Agregado con exito");
         }
+        
         objeto obtener(int p_num){
             if (a_cabeza == null)
                 return null;
@@ -104,7 +106,8 @@ public class Pilas {
                     return v_puntero.a_var;
             }
         }
-        void eliminarFinal(){
+        
+        void POP(){
             if (a_cabeza != null && a_longitud > 0)
                 if(a_cabeza.a_sig == null){
                     a_cabeza = null;
@@ -122,6 +125,7 @@ public class Pilas {
             else
                 System.out.println("No existen datos");
         }
+        
         int get_Long(){
             return a_longitud;
         }
