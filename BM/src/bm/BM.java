@@ -71,7 +71,7 @@ public class BM {
     }
     
     void m_llenaBarcos(){
-    int v_cont=0, v_cont2=0, v_limite = a_lista.a_elementos, v_cont3=0 ;
+    int v_cont=0, v_cont2=0, v_cont4 = 0, v_limite = a_lista.a_elementos, v_cont3=0 ;
     nodo v_auxiliar = null;
     boolean v_bandera = true;
     for(;v_limite>v_cont;v_cont++){
@@ -83,6 +83,7 @@ public class BM {
             if(a_barcos[v_cont2].m_ingrContenedor(v_auxiliar.a_valor)){
                 //System.out.println("al barco: " + (v_cont2+1) + " se le puso un contenedor de: " + v_auxiliar.a_valor);
             a_lista.m_borrar(v_cont);
+            v_cont4 = v_cont+1;
             v_bandera = false;
             }
         }
@@ -92,9 +93,15 @@ public class BM {
             if(a_barcos[v_cont3].m_ingrContenedor(v_auxiliar.a_valor)){
                 //System.out.println("al barco: " + (v_cont2+1) + " se le puso un contenedor de: " + v_auxiliar.a_valor);
             a_lista.m_borrar(v_cont);
+            v_cont4 = v_cont+1;
             v_bandera = false;
             }
     }
+    }
+    if(v_cont4 != 0){
+        for (; v_cont4 < v_limite; v_cont4++) {
+            a_lista.m_borrar(v_cont4);
+        }
     }
     }
     
@@ -107,10 +114,10 @@ public class BM {
     v_contenedores += (a_barcos[v_cont].a_contenedores - a_barcos[v_cont].a_numeContene);
     v_peso += (a_barcos[v_cont].a_pesoMax-a_barcos[v_cont].a_peso);
     }
-    //if(v_contenedores>0 && a_lista.a_elementos>0 && v_peso>0)
+    if(v_contenedores>0 && a_lista.a_elementos>0 && v_peso>0)
     v_resultado = v_resultado + "F" + a_lista.a_elementos + " K" + a_lista.m_suma();
-    //else
-    //v_resultado = v_resultado.substring(0,v_resultado.length()-1);
+    else
+    v_resultado = v_resultado.substring(0,v_resultado.length()-1);
     System.out.println(v_resultado);
 }
     String[] m_elimEspacios(String p_cadena){

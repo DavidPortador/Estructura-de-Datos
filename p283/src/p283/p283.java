@@ -24,7 +24,7 @@ public class p283 {
         int[] v_pesos,v_duplas;
         TDA v_ordenados;
         barco[] v_barcos;
-        //Se separan
+        // Se separan
         v_duplas = separarBarcos();
         v_pesos = separarPesos();
         // Se ordenan
@@ -111,7 +111,7 @@ public class p283 {
     }
     void calcular(barco[] p_barcos, TDA p_datos){
         String v_resultado = "";
-        boolean v_agregado, v_aux = true;
+        boolean v_agregado, v_sobra;
         Cola v_cola = new Cola("");
         int v_cc, v_cc2, v_nsobras, v_sobras = 0, v_casos = 0, v_posiBarco = 0, v_nPeso = 0, v_cont = 0; // Posicion donde se estan agregando pesos
         while(v_nPeso < p_datos.get_Long()){ // Avance con base en los pesos
@@ -123,10 +123,12 @@ public class p283 {
                     p_barcos[v_posiBarco].setA_ContMax(p_barcos[v_posiBarco].getA_ContMax()-1);
                     p_barcos[v_posiBarco].setA_PesoMax(p_barcos[v_posiBarco].getA_PesoMax()-Integer.parseInt(p_datos.obtener(v_nPeso)));
                     v_agregado = true;
-                }else{// No se puede agregar
-                    if(v_posiBarco+1 == p_barcos.length){
-                        v_agregado = false;
-                        v_aux = false;
+                }else{
+                    // No se puede agregar
+                    if(v_posiBarco + 1 == p_barcos.length){
+                        v_agregado = true; // No cabe
+                        System.out.println("No cabe --> "+Integer.parseInt(p_datos.obtener(v_nPeso)));
+                        System.out.println("===> "+v_cont);
                     }else{
                         v_agregado = false;
                     }
@@ -136,11 +138,12 @@ public class p283 {
                 if(v_posiBarco == p_barcos.length){
                     v_posiBarco = 0;
                 }
-            }while(v_cont < p_datos.get_Long() && (!v_agregado) && v_aux);
+            }while(v_cont < p_datos.get_Long() && (!v_agregado));
+            //System.out.println(v_agregado+" "+Integer.parseInt(p_datos.obtener(v_nPeso)));
             v_cont = 0;
             v_nPeso++;
             if(!v_agregado)
-                    v_cola.insertarFinal(p_datos.obtener(v_nPeso-1));
+                v_cola.insertarFinal(p_datos.obtener(v_nPeso-1));
         }
         for (v_cc = 0; v_cc < p_barcos.length; v_cc++) 
             v_resultado += ("B"+(v_cc+1)+" "+p_barcos[v_cc].getA_cont()+" "+p_barcos[v_cc].getA_pesos()+" ");

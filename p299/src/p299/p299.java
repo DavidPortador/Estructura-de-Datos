@@ -46,35 +46,23 @@ public class p299 {
     }
     void calcular(String p_caso){
         int v_ax = 0, vi, vf;
-        try {
-            String[] v_limites = p_caso.split(",");
+        String[] v_limites = p_caso.split(",");
         vi = getPosi(v_limites[0].toLowerCase());
         vf = getPosi(v_limites[1].toLowerCase());
-        //System.out.println(v_limites[0]+"("+vi+")  -->  "+v_limites[1]+"("+vf+")");
-        if(vi < a_matriz.length && vf < a_matriz.length){
-            if(vi == vf)
-                System.out.println(getLetra(vf)+" 0");
-            else{    
-                crearRecorridos();
-                int[] v_recorrido = new int[a_matriz.length];
-                v_recorrido[0] = vi;
-                for (int v_cc = 1; v_cc < a_matriz.length; v_cc++)
-                    v_recorrido[v_cc] = -1;
-                //System.out.print("===> ");
-                camino(vi,vf,1,v_recorrido);
-                for (int v_cc2 = 0; v_cc2 < v_recorrido.length; v_cc2++) {
-                    //System.out.print(v_recorrido[v_cc2]+" ");
-                }
-                //System.out.println("  = "+a_total);
-                imprimir(v_recorrido);
-                a_total = 0;
-            }
-        }else
-            System.out.println("NO HAY RUTA");
-        } catch (Exception e) {
-            System.out.println("NO HAY RUTA");
+        System.out.println(v_limites[0]+"("+vi+")  -->  "+v_limites[1]+"("+vf+")");
+        crearRecorridos();
+        int[] v_recorrido = new int[a_matriz.length];
+        v_recorrido[0] = vi;
+        for (int v_cc = 1; v_cc < a_matriz.length; v_cc++)
+            v_recorrido[v_cc] = -1;
+        System.out.println("===> "+vi+" ");
+        camino(vi,vf,1,v_recorrido);
+        for (int v_cc2 = 0; v_cc2 < v_recorrido.length; v_cc2++) {
+            System.out.print(v_recorrido[v_cc2]+" ");
         }
-        
+        System.out.println("  = "+a_total);
+        imprimir(v_recorrido);
+        a_total = 0;
     }
     void imprimir(int[] p_recorrido){
         int v_long = 0;
@@ -114,47 +102,44 @@ public class p299 {
                         v_datos[v_cc6] = aux;
                         v_letras[v_cc6] = aux2;
                     }
-            //System.out.print(v_cc + " orden ---> ");
+            System.out.print(v_cc + " orden ---> ");
             for (int v_cc7 = 0; v_cc7 < v_datos.length; v_cc7++) {
-                //System.out.print(v_datos[l]+" ("+v_letras[l]+") ");
+                System.out.print(v_datos[v_cc7]+" ("+v_letras[v_cc7]+") ");
                 Nodo v_newNodo = new Nodo(v_letras[v_cc7], v_datos[v_cc7]);
                 a_caminos[v_cc].insertarFinal(v_newNodo);
             }
-            //System.out.print(" Long -> "+a_caminos[v_cc].get_Long());
+            System.out.print(" Long -> "+a_caminos[v_cc].get_Long());
         }
     }
     void camino(int p_vi, int p_vf, int p_cont,  int[] p_recorrido){
         boolean v_ban = true;
-        if(p_cont == a_matriz.length)
-            System.out.println("NO HAY RUTA");
-        else{
-            for (int v_cc = 0; v_cc < p_cont; v_cc++) 
-                //System.out.print(" ("+p_recorrido[v_cc]+"="+a_caminos[p_vi].obtener(0).getA_letra()+") ");
-                if(p_recorrido[v_cc] == a_caminos[p_vi].obtener(0).getA_letra())
-                    v_ban = false;
-            if(v_ban){
-                //System.out.println(" => "+a_caminos[p_vi].obtener(0).getA_letra());
-                p_recorrido[p_cont] = a_caminos[p_vi].obtener(0).getA_letra();
-                a_total += a_caminos[p_vi].obtener(0).getA_peso();
-                p_cont ++;
-                if(p_vf == a_caminos[p_vi].obtener(0).getA_letra()){
-                    //System.out.println("termina");
-                }else
-                    camino(a_caminos[p_vi].obtener(0).getA_letra(), p_vf, p_cont, p_recorrido);
-            }else
-                if(a_caminos[p_vi].get_Long() > 0){
-                    a_caminos[p_vi].eliminarPrincipio();
-                    camino(p_vi, p_vf, p_cont, p_recorrido);
-                }else{
-                    p_cont --;
-                    //System.out.println("ELIMINADO: "+p_recorrido[p_cont]);
-                    a_total -= a_matriz[p_recorrido[p_cont]][p_recorrido[p_cont]-1];
-                    //System.out.println(p_recorrido[p_cont-1]);
-                    p_recorrido[p_cont] = -1;
-                    a_caminos[p_cont-1].eliminarPrincipio();
-                    camino(p_recorrido[p_cont-1], p_vf, p_cont, p_recorrido);
-                }
+        for (int v_cc = 0; v_cc < p_cont; v_cc++) {
+            System.out.print(" ("+p_recorrido[v_cc]+"="+a_caminos[p_vi].obtener(0).getA_letra()+") ");
+            if(p_recorrido[v_cc] == a_caminos[p_vi].obtener(0).getA_letra())
+                v_ban = false;
         }
+        if(v_ban){
+            System.out.println(" => "+a_caminos[p_vi].obtener(0).getA_letra());
+            p_recorrido[p_cont] = a_caminos[p_vi].obtener(0).getA_letra();
+            a_total += a_caminos[p_vi].obtener(0).getA_peso();
+            p_cont ++;
+            if(p_vf == a_caminos[p_vi].obtener(0).getA_letra()){
+                System.out.println("termina");
+            }else
+                camino(a_caminos[p_vi].obtener(0).getA_letra(), p_vf, p_cont, p_recorrido);
+        }else
+            if(a_caminos[p_vi].get_Long() > 1){
+                a_caminos[p_vi].eliminarPrincipio();
+                camino(p_vi, p_vf, p_cont, p_recorrido);
+            }else{
+                p_cont --;
+                System.out.println("ELIMINADO: "+p_recorrido[p_cont]);
+                a_total -= a_matriz[p_recorrido[p_cont]][p_recorrido[p_cont]-1];
+                System.out.println(p_recorrido[p_cont-1]);
+                p_recorrido[p_cont] = -1;
+                a_caminos[p_cont-1].eliminarPrincipio();
+                camino(p_recorrido[p_cont-1], p_vf, p_cont, p_recorrido);
+            }
     }
     int getPosi(String p_letra){
         int v_cc, v_posi = 0;
