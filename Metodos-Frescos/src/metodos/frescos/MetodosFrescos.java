@@ -6,7 +6,9 @@ public class MetodosFrescos {
         System.out.println("1) Retornar arreglo de numeros por espacios");
         System.out.println("2) Retornar arreglo de Strings");
         System.out.println("3) Retornar arreglo de numeros sin repeticiones");
-        
+        // alt + shif + f       Ordenar el codigo
+        // ctrl + f            Buscar palabras en tdo el codigo
+        // ctrl + shift + tab   Tabular a la izquierda
         
     }
 // Toma de parametro una cadena y la devuelve como un arrelo entero separado por espacios

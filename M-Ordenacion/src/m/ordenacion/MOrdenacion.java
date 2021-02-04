@@ -15,7 +15,8 @@ public class MOrdenacion {
     }
     void asignar(){
         int v_aux[];
-        //getDatos();
+        getDatos();
+        /*
         System.out.println("~ Hecho por Luis David Garcia Ramirez ~\n");
         // Evaluacion con 5,000 datos
         System.out.println(" ~ Evaluacion con 5,000 datos ~ ");
@@ -58,12 +59,12 @@ public class MOrdenacion {
         v_aux = a_500;
         heap(v_aux);
         v_aux = a_500;
-        quick(v_aux);
+        quick(v_aux);*/
     }
     void getDatos(){ // Metodo para obtener los valores a ordenar (entre 0 y 1000)
         for (int v_cc = 0; v_cc < 10000; v_cc++) {
             int valorEntero = (int) Math.floor(Math.random()*(1000 - 0 + 1) + 0);
-            System.out.print(valorEntero + ", ");
+            System.out.println(valorEntero);
         }
     }
     void burbuja(int[] p_valores){

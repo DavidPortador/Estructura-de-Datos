@@ -1,4 +1,5 @@
 package factorialrecursivo;
+
 import java.util.Scanner;
 public class FactorialRecursivo {
     Scanner a_tec = new Scanner(System.in);
