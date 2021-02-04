@@ -2,7 +2,6 @@ package ordenamientosexternos;
 
 import java.io.*;
 import java.util.*;
-
 public class OrdenamientosExternos {
     Scanner a_tec = new Scanner(System.in);
     public static void main(String[] args) {
@@ -29,7 +28,7 @@ public class OrdenamientosExternos {
                 System.out.println("Valores: ");
                 for (v_cc = 0; v_cc < v_can; v_cc++) {
                     v_ax = a_tec.nextInt();
-                    Agregar(v_archivo,v_ax);
+                    Agregar(v_archivo, v_ax);
                 }
             } else if (v_res == 2) {
                 System.out.println("¿Desea ver los datos usados? s/n");
@@ -39,7 +38,7 @@ public class OrdenamientosExternos {
                     v_ban = true;
                 for (v_cc = 0; v_cc < v_can; v_cc++) {
                     v_ax = (int) Math.floor(Math.random() * (1000 - 0 + 1) + 0);
-                    Agregar(v_archivo,v_ax);
+                    Agregar(v_archivo, v_ax);
                     if (v_ban)
                         System.out.println(v_ax);
                 }
@@ -52,7 +51,7 @@ public class OrdenamientosExternos {
         // Automaticamente comienza la ordenacion cuando termina de recibir datos
         mezclaDirecta(v_archivo);
         System.out.println("¿Desea ver los datos ordenados? s/n");
-        if(!v_ban)
+        if (!v_ban)
             a_tec.nextLine();
         v_aux = a_tec.nextLine();
         if (v_aux.equalsIgnoreCase("s"))
@@ -138,14 +137,13 @@ public class OrdenamientosExternos {
         // Bucle para controlar todo el proceso de mezcla
         for (int s = 1; s <= v_numSec + 1; s++) {
             v_n1 = v_n2 = p_lonSec;
-            if (s == v_numSec + 1) {
+            if (s == v_numSec + 1)
                 if (v_resto > p_lonSec)
                     v_n2 = v_resto - p_lonSec;
                 else {
                     v_n1 = v_resto;
                     v_n2 = 0;
                 }
-            }
             v_cc = v_cc2 = 1;
             while (v_cc <= v_n1 && v_cc2 <= v_n2) {
                 if (v_clave1 < v_clave2) {
@@ -191,7 +189,7 @@ public class OrdenamientosExternos {
             v_flujo = new DataInputStream(new BufferedInputStream(new FileInputStream(p_archivo)));
             System.out.println("Datos Ordenados: ");
             while (true)
-                System.out.print(v_flujo.readInt() + ", "); 
+                System.out.print(v_flujo.readInt() + ", ");
         } catch (EOFException eof) {
             v_flujo.close();
         }

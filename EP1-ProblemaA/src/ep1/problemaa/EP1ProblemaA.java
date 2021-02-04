@@ -14,11 +14,10 @@ public class EP1ProblemaA {
         v_fin = valientero("Rango final: ");
         System.out.print("Direccion: ");
         v_dir = a_tec.next();
-        if(v_dir.charAt(v_dir.length()-1) == '<'){
+        if(v_dir.charAt(v_dir.length()-1) == '<')
             descendente(v_ini,v_fin,v_fin);
-        }else if(v_dir.charAt(v_dir.length()-1) == '>'){
+        else if(v_dir.charAt(v_dir.length()-1) == '>')
             ascendente(v_ini,v_fin,v_ini);
-        }
     }
     void ascendente(int p_ini,int p_fin,int p_aux){
         if(p_ini<=p_aux && p_fin>=p_aux){

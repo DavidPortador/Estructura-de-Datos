@@ -1,7 +1,6 @@
 package lista.enlazada;
 
 import java.util.Scanner;
-
 public class ListaEnlazada {
     Scanner a_tec = new Scanner(System.in);
     public static void main(String[] args) {
@@ -12,19 +11,19 @@ public class ListaEnlazada {
     void entrada() {
         Nodo v_aux = new Nodo("");
         Lista v_lista = new Lista(v_aux);
-        while(true){
-        if(v_lista.getLong() < 1){
-            System.out.println("Cabeza: null");
-            System.out.println("Tope: null");
-        }else{
-            System.out.println("\nCabeza: "+v_lista.obtener(0).getA_texto());
-            if(v_lista.getLong() == 1)
+        while (true) {
+            if (v_lista.getLong() < 1) {
+                System.out.println("Cabeza: null");
                 System.out.println("Tope: null");
-            else
-                System.out.println("Tope: "+v_lista.obtener(v_lista.getLong()-1).getA_texto());
-        }
-        System.out.println("Longitud: "+v_lista.getLong());
-        menu(v_lista);
+            } else {
+                System.out.println("\nCabeza: " + v_lista.obtener(0).getA_texto());
+                if (v_lista.getLong() == 1)
+                    System.out.println("Tope: null");
+                else
+                    System.out.println("Tope: " + v_lista.obtener(v_lista.getLong() - 1).getA_texto());
+            }
+            System.out.println("Longitud: " + v_lista.getLong());
+            menu(v_lista);
         }
     }
 
@@ -46,18 +45,15 @@ public class ListaEnlazada {
         switch (v_opc) {
             case 1:
                 int v_dato = -1;
-                if (p_lista.getLong() < 1) {
+                if (p_lista.getLong() < 1)
                     System.out.println("No hay datos");
-                } else if (p_lista.getLong() == 1) {
-                    System.out.println("Solo exite el dato ["
-                            + p_lista.obtener(0).getA_texto() + "]");
-                } else {
+                else if (p_lista.getLong() == 1)
+                    System.out.println("Solo exite el dato ["+ p_lista.obtener(0).getA_texto() + "]");
+                else {
                     System.out.println("Cabeza(0) a Cola(" + (p_lista.getLong() - 1) + ")");
-                    while (v_dato < 0 || v_dato >= p_lista.getLong()) {
+                    while (v_dato < 0 || v_dato >= p_lista.getLong())
                         v_dato = valiEntero("Obtener dato: ");
-                    }
-                    System.out.println("Dato (" + v_dato + ") tiene = "
-                            + "[" + p_lista.obtener(v_dato).getA_texto() + "]");
+                    System.out.println("Dato (" + v_dato + ") tiene = "+ "[" + p_lista.obtener(v_dato).getA_texto() + "]");
                 }
                 break;
             case 2:
@@ -65,9 +61,8 @@ public class ListaEnlazada {
                 System.out.print("Estructura: (");
                 for (v_cont = 0; v_cont < p_lista.getLong(); v_cont++) {
                     System.out.print(p_lista.obtener(v_cont).getA_texto());
-                    if (v_cont != p_lista.getLong() - 1) {
+                    if (v_cont != p_lista.getLong() - 1)
                         System.out.print(", ");
-                    }
                 }
                 System.out.println(")");
                 break;
@@ -93,20 +88,18 @@ public class ListaEnlazada {
                 } else {
                     System.out.println("Cabeza(0) a Cola(" + p_lista.getLong() + ")");
                     v_op = valiEntero("Insertar dato en la posicion:");
-                    while (v_op < 0 || v_op > p_lista.getLong()) {
+                    while (v_op < 0 || v_op > p_lista.getLong())
                         v_op = valiEntero("Insertar dato en la posicion:");
-                    }
                     a_tec.nextLine(); // Limpia el buffer 
                     System.out.print("Dato: ");
                     v_texto = a_tec.nextLine();
                     Nodo v_xn = new Nodo(v_texto);
-                    if (v_op == 0) {
+                    if (v_op == 0)
                         p_lista.insertarPrincipio(v_xn);
-                    } else if (v_op == p_lista.getLong()) {
+                    else if (v_op == p_lista.getLong())
                         p_lista.insertarFinal(v_xn);
-                    } else {
+                    else
                         p_lista.insertarXn(v_op - 1, v_xn);
-                    }
                 }
                 break;
             case 6:
@@ -117,75 +110,67 @@ public class ListaEnlazada {
                     System.out.print("Esta seguro de borrar la cabeza "
                             + "de la estructura[s/n]");
                     v_texto = a_tec.nextLine();
-                    if (v_texto.equals("s") || v_texto.equals("S")) {
+                    if (v_texto.equals("s") || v_texto.equals("S"))
                         p_lista.eliminarPrincipio();
-                    } else {
+                    else
                         System.out.println("No se borro el dato");
-                    }
                 }
                 break;
             case 7:
                 if (p_lista.getLong() < 2) {
-                    if (p_lista.getLong() == 0) {
+                    if (p_lista.getLong() == 0)
                         System.out.println("No hay datos");
-                    } else {
+                    else
                         System.out.println("Solo exite un dato");
-                    }
                 } else {
                     a_tec.nextLine(); // Limpia el buffer para la entrada de datos
                     System.out.print("Esta seguro de borrar la cola "
                             + "de la estructura[s/n]");
                     v_texto = a_tec.nextLine();
-                    if (v_texto.equals("s") || v_texto.equals("S")) {
+                    if (v_texto.equals("s") || v_texto.equals("S"))
                         p_lista.eliminarFinal();
-                    } else {
+                    else
                         System.out.println("No se borro el dato");
-                    }
                 }
                 break;
             case 8:
                 if (p_lista.getLong() < 2) {
-                    if (p_lista.getLong() == 0) {
+                    if (p_lista.getLong() == 0)
                         System.out.println("No hay datos");
-                    } else {
+                    else
                         System.out.println("Solo exite un dato");
-                    }
                 } else {
                     int v_aux = -1;
                     System.out.println("Cabeza(0) a Cola(" + (p_lista.getLong() - 1) + ")");
-                    while (v_aux < 0 || v_aux >= p_lista.getLong()) {
+                    while (v_aux < 0 || v_aux >= p_lista.getLong())
                         v_aux = valiEntero("¿Qué dato deseas borrar?");
-                    }
                     if (v_aux == 0) {
                         a_tec.nextLine(); // Limpia el buffer para la entrada de datos
                         System.out.print("Esta seguro de borrar la cabeza "
                                 + "de la estructura[s/n]");
                         v_texto = a_tec.nextLine();
-                        if (v_texto.equals("s") || v_texto.equals("S")) {
+                        if (v_texto.equals("s") || v_texto.equals("S"))
                             p_lista.eliminarPrincipio();
-                        } else {
+                        else
                             System.out.println("No se borro el dato");
-                        }
                     } else if (v_aux == (p_lista.getLong() - 1)) {
                         a_tec.nextLine(); // Limpia el buffer
                         System.out.print("Esta seguro de borrar la cola "
                                 + "de la estructura[s/n]");
                         v_texto = a_tec.nextLine();
-                        if (v_texto.equals("s") || v_texto.equals("S")) {
+                        if (v_texto.equals("s") || v_texto.equals("S"))
                             p_lista.eliminarFinal();
-                        } else {
+                        else
                             System.out.println("No se borro el dato");
-                        }
                     } else {
                         a_tec.nextLine(); // Limpia el buffer
                         System.out.print("Esta seguro de borrar el dato (" + v_aux
                                 + ") de la estructura[s/n]");
                         v_texto = a_tec.nextLine();
-                        if (v_texto.equals("s") || v_texto.equals("S")) {
+                        if (v_texto.equals("s") || v_texto.equals("S"))
                             p_lista.eliminarXn(v_aux);
-                        } else {
+                        else
                             System.out.println("No se borro el dato");
-                        }
                     }
                 }
                 break;
@@ -216,9 +201,7 @@ public class ListaEnlazada {
     }
 
     class Nodo {
-
         private String a_texto;
-
         public Nodo(String a_texto) {
             this.a_texto = a_texto;
         }
@@ -234,12 +217,10 @@ public class ListaEnlazada {
     }
 
     class Lista {
-
         Lista a_cabeza;
         int a_longitud = 0;
         Lista a_sig = null;
         public Nodo a_obj;
-
         // Constructor que recibe el objeto a manipular
         public Lista(Nodo p_obj) {
             a_obj = p_obj;
@@ -256,13 +237,12 @@ public class ListaEnlazada {
         void insertarFinal(Nodo p_obj) {
             Lista v_nuevoNodo = new Lista(p_obj);
             // Valida que la lista no este vacia
-            if (a_cabeza == null) {
+            if (a_cabeza == null)
                 a_cabeza = v_nuevoNodo;
-            } else {
+            else {
                 Lista v_puntero = a_cabeza;
-                while (v_puntero.a_sig != null) {
+                while (v_puntero.a_sig != null)
                     v_puntero = v_puntero.a_sig;
-                }
                 v_puntero.a_sig = v_nuevoNodo;
             }
             a_longitud++;
@@ -272,9 +252,9 @@ public class ListaEnlazada {
         void insertarXn(int p_num, Nodo p_obj) { // Posicion especifica
             Lista v_nuevoNodo = new Lista(p_obj);
             // Valida que la lista no este vacia
-            if (a_cabeza == null) {
+            if (a_cabeza == null)
                 a_cabeza = v_nuevoNodo;
-            } else {
+            else {
                 Lista v_puntero = a_cabeza;
                 int v_cont = 0;
                 while (v_cont < p_num && v_puntero.a_sig != null) {
@@ -289,20 +269,19 @@ public class ListaEnlazada {
         }
 
         Nodo obtener(int p_num) {
-            if (a_cabeza == null) {
+            if (a_cabeza == null)
                 return null;
-            } else {
+            else {
                 Lista v_puntero = a_cabeza;
                 int v_cont = 0;
                 while (v_cont < p_num && v_puntero.a_sig != null) {
                     v_puntero = v_puntero.a_sig;
                     v_cont++;
                 }
-                if (v_cont != p_num) {
+                if (v_cont != p_num)
                     return null;
-                } else {
+                else
                     return v_puntero.a_obj;
-                }
             }
         }
 
@@ -313,36 +292,32 @@ public class ListaEnlazada {
                 v_primer.a_sig = null;
                 a_longitud--;
                 System.out.println("*Se elimino la cabeza de la estructura*");
-            } else {
+            } else
                 System.out.println("No existen datos");
-            }
         }
 
         void eliminarFinal() {
-            if (a_cabeza != null && a_longitud != 1) {
+            if (a_cabeza != null && a_longitud != 1)
                 if (a_cabeza.a_sig == null) {
                     a_cabeza = null;
                     a_longitud--;
                     System.out.println("*Se elimino la cola de la estructura*");
                 } else {
                     Lista v_puntero = a_cabeza;
-                    while (v_puntero.a_sig.a_sig != null) {
+                    while (v_puntero.a_sig.a_sig != null)
                         v_puntero = v_puntero.a_sig;
-                    }
                     v_puntero.a_sig = null;
                     a_longitud--;
                     System.out.println("*Se elimino la cola de la estructura*");
                 }
-            } else if (a_longitud == 1) {
+            else if (a_longitud == 1)
                 System.out.println("Solo existe un dato");
-            } else {
+            else
                 System.out.println("No existen datos");
-            }
-
         }
 
         void eliminarXn(int p_num) {
-            if (a_cabeza != null) {
+            if (a_cabeza != null)
                 if (p_num == 0) {
                     Lista v_primer = a_cabeza;
                     a_cabeza = a_cabeza.a_sig;
@@ -362,7 +337,6 @@ public class ListaEnlazada {
                     a_longitud--;
                     System.out.println("*Se elimino el dato (" + p_num + ")*");
                 }
-            }
         }
 
         int getLong() {

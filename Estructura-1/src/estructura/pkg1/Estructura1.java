@@ -1,6 +1,6 @@
 package estructura.pkg1;
-import java.util.Scanner;
 
+import java.util.Scanner;
 public class Estructura1 {
     // El unico atributo será el Scanner
     Scanner a_tec = new Scanner(System.in);
@@ -14,21 +14,30 @@ public class Estructura1 {
                 + "4) Salir");
         v_obj.crear();
     }
+
     // Metodos 
-    void crear(){
+    void crear() {
         int v_opc;
         v_opc = valiEntero("Ingrese una opción valida: ");
-        if(v_opc < 1 || v_opc > 4)
+        if (v_opc < 1 || v_opc > 4) 
             crear();
-        else
-            switch(v_opc){
-                case 1:listaInt();break;
-                case 2:listaString();break;
-                case 3:listaFloat(); break;
-                case 4:System.exit(0);
+        else 
+            switch (v_opc) {
+                case 1:
+                    listaInt();
+                    break;
+                case 2:
+                    listaString();
+                    break;
+                case 3:
+                    listaFloat();
+                    break;
+                case 4:
+                    System.exit(0);
             }
     }
-    void listaString(){
+
+    void listaString() {
         a_tec.nextLine(); // Limpia el buffer para la entrada de datos
         String v_texto;
         System.out.print("Ingrese la cabeza de la estructura: ");
@@ -36,22 +45,25 @@ public class Estructura1 {
         clasString v_dato = new clasString(v_texto);
         listaString v_list = new listaString(v_dato);
     }
-    void listaFloat(){
+
+    void listaFloat() {
         float v_opc;
         v_opc = valiFloat("Ingrese la cabeza de la estructura: ");
         classFloat v_dato = new classFloat(v_opc);
         listaFloat v_list = new listaFloat(v_dato);
     }
-    void listaInt(){
+
+    void listaInt() {
         int v_opc;
         v_opc = valiEntero("Ingrese la cabeza de la estructura: ");
         classInt v_dato = new classInt(v_opc);
         listaInt v_list = new listaInt(v_dato);
     }
+
     // Validaciones
-    int valiEntero(String p_texto){
+    int valiEntero(String p_texto) {
         int v_num;
-        while(true){
+        while (true) {
             System.out.print(p_texto);
             try {
                 v_num = a_tec.nextInt();
@@ -63,9 +75,10 @@ public class Estructura1 {
         }
         return v_num;
     }
-    float valiFloat(String p_texto){
+
+    float valiFloat(String p_texto) {
         float v_flt;
-        while(true){
+        while (true) {
             System.out.print(p_texto);
             try {
                 v_flt = a_tec.nextFloat();
