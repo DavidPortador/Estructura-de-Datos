@@ -15,8 +15,8 @@ public class Pilas {
         // Se crea el nodo y se utiliza un objeto auxiliar para manejarlo cuando aun no se le agregan datos
         while (true) {
             v_opc = valiEntero("\n----- Menu -----\n"
-                    + "1)POP (agregar)\n"
-                    + "2)PUSH (eliminar)\n"
+                    + "1)PUSH (agregar)\n"
+                    + "2)POP (eliminar)\n"
                     + "3)Mostar Pila\n"
                     + "4)Salir\n"
                     + "Opcion: ");
